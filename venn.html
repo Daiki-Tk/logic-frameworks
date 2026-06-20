@@ -7,8 +7,54 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* デモ専用：集合数の切替セグメント（エンジンのツールバーとは別物） */
+    .venn-demo-toggle {
+      max-width: 720px;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--color-text-muted);
+    }
+    .venn-demo-toggle .demo-label {
+      font-weight: 700;
+    }
+    .venn-demo-seg {
+      display: inline-flex;
+      border: 1.5px solid var(--color-primary);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .venn-demo-seg button {
+      font-family: var(--font-main);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border: none;
+      background: var(--color-white);
+      color: var(--color-primary);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .venn-demo-seg button.is-active {
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+  </style>
 </head>
 <body>
+
+  <!-- デモ専用：2集合／3集合の切替（エンジン外のUI） -->
+  <div class="venn-demo-toggle">
+    <span class="demo-label">デモ切替：</span>
+    <span class="venn-demo-seg">
+      <button id="demo-2" class="is-active">2集合</button>
+      <button id="demo-3">3集合</button>
+    </span>
+    <span>（集合数はデータ側の sets で決まります）</span>
+  </div>
 
   <!-- ベン図を描画するコンテナ -->
   <div id="venn-container"></div>
@@ -26,7 +72,6 @@
   <script src="js/engines/venn.js"></script>
   <script>
     // 「ベン図（2集合）」の初期データ定義
-    // sets を3個にすると3集合（正三角形配置）になる。
     // ※ この定数は初期データ。VennEngine 側は参照せず、
     //   リセットは内部に保持した初期configを使う。
     const DEFAULT_VENN_CONFIG = {
@@ -44,12 +89,57 @@
       ]
     };
 
-    // エンジンを初期化（保存データがあれば自動復元）
-    const engine = new VennEngine(
-      document.getElementById('venn-container'),
-      DEFAULT_VENN_CONFIG
-    );
-    engine.init();
+    // 「ベン図（3集合）」の初期データ定義
+    // id が2集合と別なので localStorage の保存も別々になり、互いを上書きしない。
+    const DEFAULT_VENN_CONFIG_3 = {
+      id: "venn-sample-3",
+      type: "venn",
+      title: "ベン図（3集合）",
+      sets: [
+        { id: "A", label: "集合A" },
+        { id: "B", label: "集合B" },
+        { id: "C", label: "集合C" }
+      ],
+      items: [
+        { id: "i1", text: "Aだけ",   x: 0.30, y: 0.32 },
+        { id: "i2", text: "Bだけ",   x: 0.70, y: 0.32 },
+        { id: "i3", text: "Cだけ",   x: 0.50, y: 0.78 },
+        { id: "i4", text: "A∩B",     x: 0.50, y: 0.33 },
+        { id: "i5", text: "A∩B∩C",   x: 0.50, y: 0.52 }
+      ]
+    };
+
+    // 現在のエンジンインスタンス（切替時に作り直す）
+    let engine = null;
+
+    // 指定configでエンジンを作り直して初期化する
+    function mountVenn(config) {
+      engine = new VennEngine(
+        document.getElementById('venn-container'),
+        config
+      );
+      engine.init();
+    }
+
+    // セグメントのアクティブ表示を更新する
+    function setActive(which) {
+      document.getElementById('demo-2').classList.toggle('is-active', which === 2);
+      document.getElementById('demo-3').classList.toggle('is-active', which === 3);
+    }
+
+    // 切替ボタン
+    document.getElementById('demo-2').addEventListener('click', () => {
+      setActive(2);
+      mountVenn(DEFAULT_VENN_CONFIG);
+    });
+    document.getElementById('demo-3').addEventListener('click', () => {
+      setActive(3);
+      mountVenn(DEFAULT_VENN_CONFIG_3);
+    });
+
+    // 初期表示は従来どおり2集合
+    setActive(2);
+    mountVenn(DEFAULT_VENN_CONFIG);
   </script>
 
 </body>
