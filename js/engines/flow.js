@@ -478,7 +478,8 @@ class FlowEngine {
 
     el.addEventListener('blur', finish, { once: true });
     el.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
+      // IME変換確定のEnterで誤確定しないよう e.isComposing でガード。
+      if (e.key === 'Enter' && !e.isComposing) {
         e.preventDefault();
         el.blur();
       }

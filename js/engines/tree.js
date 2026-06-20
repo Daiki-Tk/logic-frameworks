@@ -347,8 +347,9 @@ class TreeEngine {
 
     textEl.addEventListener('blur', finish, { once: true });
     textEl.addEventListener('keydown', (e) => {
-      // Enter で確定（改行は許可しない）
-      if (e.key === 'Enter') {
+      // Enter で確定（改行は許可しない）。
+      // IME変換確定のEnterで誤確定しないよう e.isComposing でガード。
+      if (e.key === 'Enter' && !e.isComposing) {
         e.preventDefault();
         textEl.blur();
       }
