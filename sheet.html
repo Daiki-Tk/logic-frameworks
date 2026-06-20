@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5W1H分析シート | ロジカルシンキング フレームワーク集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- シートを描画するコンテナ -->
+  <div id="sheet-container"></div>
+
+  <!-- 操作ガイド -->
+  <div class="lf-hint">
+    <span>記入欄はクリックしてそのまま入力（複数行可）</span>
+    <span>項目名はダブルクリックで編集</span>
+    <span>行にマウスを乗せると「◀ ＋ ▶ ✕」ボタンが表示</span>
+    <span>◀▶で並べ替え、＋で直後に追加、✕で削除</span>
+    <span>ツールバーの「項目を追加」で末尾に追加</span>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/engines/sheet.js"></script>
+  <script>
+    // 「5W1H分析シート」の初期データ定義
+    // layout を "stack" にするとカード形式（ラベル上／記入欄下）になる。
+    // ※ この定数は初期データ。SheetEngine 側は参照せず、
+    //   リセットは内部に保持した初期configを使う。
+    const DEFAULT_SHEET_CONFIG = {
+      id: "5w1h-sample",
+      type: "sheet",
+      title: "5W1H分析シート",
+      layout: "row", // "row"=表形式 / "stack"=カード形式
+      fields: [
+        { id: "f1", label: "When（いつ）",      value: "" },
+        { id: "f2", label: "Where（どこで）",    value: "" },
+        { id: "f3", label: "Who（誰が）",        value: "" },
+        { id: "f4", label: "What（何を）",       value: "" },
+        { id: "f5", label: "Why（なぜ）",        value: "" },
+        { id: "f6", label: "How（どのように）",   value: "" }
+      ]
+    };
+
+    // エンジンを初期化（保存データがあれば自動復元）
+    const engine = new SheetEngine(
+      document.getElementById('sheet-container'),
+      DEFAULT_SHEET_CONFIG
+    );
+    engine.init();
+  </script>
+
+</body>
+</html>
