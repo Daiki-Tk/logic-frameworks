@@ -344,3 +344,171 @@ body {
 .matrix-hint span::before {
   content: '• ';
 }
+
+/* ─────────────────────────────────────────
+   型B：ツリー/階層型エンジン
+───────────────────────────────────────── */
+
+/* スクロールコンテナ（横スクロールで全体を見られるようにする） */
+.tree-wrapper {
+  overflow: auto;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-white);
+  box-shadow: var(--shadow);
+  max-width: 100%;
+}
+
+/* 内側コンテナ（ノードと線を内包し、コンテンツサイズに広がる） */
+.tree-canvas {
+  position: relative;
+  display: inline-block;
+  padding: 32px 40px;
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+/* 接続線レイヤー（ノードの背面） */
+.tree-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+}
+
+.tree-line {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 2;
+}
+
+/* サブツリー（ノード本体＋子ノード群） */
+.tree-subtree {
+  display: flex;
+  position: relative;
+  z-index: 1;
+}
+
+/* 横向き（ロジックツリー）：親の右に子を縦並び */
+[data-direction="horizontal"] .tree-subtree {
+  flex-direction: row;
+  align-items: center;
+}
+[data-direction="horizontal"] .tree-children {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  margin-left: 48px; /* 接続線を引くための余白 */
+}
+
+/* 縦向き（ピラミッド）：親の下に子を横並び */
+[data-direction="vertical"] .tree-subtree {
+  flex-direction: column;
+  align-items: center;
+}
+[data-direction="vertical"] .tree-children {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 48px; /* 接続線を引くための余白 */
+}
+
+/* 子が無いときは余白を作らない */
+.tree-children:empty {
+  display: none;
+}
+
+/* ノード本体（編集可能なボックス） */
+.tree-node {
+  position: relative;
+  background: var(--color-white);
+  border: 2px solid var(--color-primary);
+  border-radius: 6px;
+  padding: 8px 14px;
+  min-width: 80px;
+  max-width: 200px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.tree-node:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary-dark);
+}
+
+/* ルートノードは塗りで強調 */
+.tree-node.is-root {
+  background: var(--color-primary);
+  border-color: var(--color-primary-dark);
+}
+.tree-node.is-root .tree-node-text {
+  color: var(--color-white);
+}
+
+/* 選択状態（型Aの付箋と同じ見た目） */
+.tree-node.is-selected {
+  border-color: var(--color-primary-dark);
+  box-shadow: 0 0 0 3px var(--color-primary-light), var(--shadow-md);
+}
+
+/* 編集中 */
+.tree-node.is-editing {
+  cursor: text;
+}
+
+.tree-node-text {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+  text-align: center;
+  line-height: 1.4;
+  outline: none;
+  min-height: 1em;
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* ノード操作の小ボタン（ホバー/選択時に表示） */
+.tree-node-controls {
+  position: absolute;
+  top: -14px;
+  right: -8px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+  z-index: 5;
+}
+
+.tree-node:hover .tree-node-controls,
+.tree-node.is-selected .tree-node-controls {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tree-mini-btn {
+  font-family: var(--font-main);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-white);
+  background: var(--color-primary);
+  border: 1.5px solid var(--color-white);
+  border-radius: 12px;
+  padding: 2px 8px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.tree-mini-btn:hover {
+  background: var(--color-primary-dark);
+}
