@@ -225,8 +225,11 @@ class SheetEngine {
 
     labelEl.addEventListener('blur', finish, { once: true });
     labelEl.addEventListener('keydown', (e) => {
-      // ラベルは1行。Enter で確定（IME変換中は無視）
-      if (e.key === 'Enter' && !this._composing) {
+      // ラベルは1行。Enter で確定（IME変換中は無視）。
+      // 判定は共有フラグではなく要素非依存の e.isComposing を使う。
+      // （ラベル要素には composition リスナーが無く this._composing が
+      //   立たないため、変換確定のEnterで誤確定するのを防ぐ）
+      if (e.key === 'Enter' && !e.isComposing) {
         e.preventDefault();
         labelEl.blur();
       }
