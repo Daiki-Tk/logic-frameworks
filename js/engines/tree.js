@@ -105,10 +105,10 @@ class TreeEngine {
   /** ツールバー（ボタン群）を生成する */
   _buildToolbar() {
     const bar = document.createElement('div');
-    bar.className = 'matrix-toolbar'; // ツールバーのスタイルは型Aと共通
+    bar.className = 'lf-toolbar'; // ツールバーのスタイルは全エンジン共通
 
     const title = document.createElement('h2');
-    title.className = 'matrix-title';
+    title.className = 'lf-title';
     title.textContent = this.config.title;
 
     const btnSave = this._createButton('保存', 'btn-primary', () => this.save());
@@ -521,11 +521,11 @@ class TreeEngine {
 
   /** 一時的なトースト通知を表示する */
   _showToast(message) {
-    const existing = document.querySelector('.matrix-toast');
+    const existing = document.querySelector('.lf-toast');
     if (existing) existing.remove();
 
     const toast = document.createElement('div');
-    toast.className = 'matrix-toast'; // トーストのスタイルは型Aと共通
+    toast.className = 'lf-toast'; // トーストのスタイルは全エンジン共通
     toast.textContent = message;
     document.body.appendChild(toast);
 

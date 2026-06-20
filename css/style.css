@@ -92,7 +92,7 @@ body {
 /* ─────────────────────────────────────────
    ツールバー
 ───────────────────────────────────────── */
-.matrix-toolbar {
+.lf-toolbar {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -100,7 +100,7 @@ body {
   flex-wrap: wrap;
 }
 
-.matrix-title {
+.lf-title {
   font-size: 20px;
   font-weight: 700;
   color: var(--color-text);
@@ -306,7 +306,7 @@ body {
 /* ─────────────────────────────────────────
    トースト通知
 ───────────────────────────────────────── */
-.matrix-toast {
+.lf-toast {
   position: fixed;
   bottom: 32px;
   left: 50%;
@@ -323,7 +323,7 @@ body {
   z-index: 9999;
 }
 
-.matrix-toast.is-visible {
+.lf-toast.is-visible {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
