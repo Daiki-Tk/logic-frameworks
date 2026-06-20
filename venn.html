@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ベン図 | ロジカルシンキング フレームワーク集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ベン図を描画するコンテナ -->
+  <div id="venn-container"></div>
+
+  <!-- 操作ガイド -->
+  <div class="lf-hint">
+    <span>円の上をクリックしてアイテムを追加</span>
+    <span>アイテムをダブルクリックでテキスト編集</span>
+    <span>アイテムをドラッグして領域間を移動</span>
+    <span>アイテムを選択してDeleteキー／削除ボタン／✕で削除</span>
+    <span>集合ラベルをクリックして編集</span>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/engines/venn.js"></script>
+  <script>
+    // 「ベン図（2集合）」の初期データ定義
+    // sets を3個にすると3集合（正三角形配置）になる。
+    // ※ この定数は初期データ。VennEngine 側は参照せず、
+    //   リセットは内部に保持した初期configを使う。
+    const DEFAULT_VENN_CONFIG = {
+      id: "venn-sample",
+      type: "venn",
+      title: "ベン図（2集合）",
+      sets: [
+        { id: "A", label: "集合A" },
+        { id: "B", label: "集合B" }
+      ],
+      items: [
+        { id: "i1", text: "Aだけの要素", x: 0.30, y: 0.50 },
+        { id: "i2", text: "共通の要素",   x: 0.50, y: 0.50 },
+        { id: "i3", text: "Bだけの要素", x: 0.70, y: 0.50 }
+      ]
+    };
+
+    // エンジンを初期化（保存データがあれば自動復元）
+    const engine = new VennEngine(
+      document.getElementById('venn-container'),
+      DEFAULT_VENN_CONFIG
+    );
+    engine.init();
+  </script>
+
+</body>
+</html>

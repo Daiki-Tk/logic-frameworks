@@ -849,3 +849,147 @@ body {
     border-radius: var(--radius) var(--radius) 0 0;
   }
 }
+
+/* ─────────────────────────────────────────
+   型E：円/集合図型エンジン
+───────────────────────────────────────── */
+
+.venn-wrapper {
+  display: flex;
+  justify-content: center;
+  overflow: hidden; /* 盤面は内側に収めるので横スクロールを出さない */
+  max-width: 100%;
+}
+
+/* 正方形の盤面（一辺はJSで算出） */
+.venn-board {
+  position: relative;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-white);
+  box-shadow: var(--shadow);
+}
+
+/* 円レイヤー（アイテムの背面・操作を奪わない） */
+.venn-circles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none; /* クリック追加・ドラッグ・選択はアイテムレイヤーが受ける */
+  z-index: 0;
+}
+.venn-circle {
+  pointer-events: none;
+}
+
+/* アイテムレイヤー（クリックで追加・ドラッグで移動を受ける） */
+.venn-item-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* アイテム（付箋。matrix と同じ作法） */
+.venn-item {
+  position: absolute;
+  transform: translate(-50%, -50%); /* 座標はアイテムの中心 */
+  background: var(--color-white);
+  border: 2px solid var(--color-primary);
+  border-radius: 6px;
+  padding: 6px 10px;
+  min-width: 56px;
+  max-width: 140px;
+  box-shadow: var(--shadow);
+  cursor: grab;
+  user-select: none;
+  z-index: 10;
+  transition: box-shadow 0.15s, transform 0.1s;
+}
+.venn-item:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary-dark);
+}
+.venn-item.is-selected {
+  border-color: var(--color-primary-dark);
+  box-shadow: 0 0 0 3px var(--color-primary-light), var(--shadow-md);
+}
+.venn-item.is-dragging {
+  cursor: grabbing;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+  transform: translate(-50%, -50%) scale(1.05);
+  z-index: 100;
+}
+.venn-item.is-editing {
+  cursor: text;
+}
+.venn-item-text {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text);
+  text-align: center;
+  word-break: break-all;
+  line-height: 1.4;
+  outline: none;
+  min-height: 1em;
+}
+
+/* アイテムの「✕」削除ボタン（ホバー/選択時に表示） */
+.venn-item-del {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-white);
+  background: var(--color-danger);
+  color: var(--color-white);
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.venn-item:hover .venn-item-del,
+.venn-item.is-selected .venn-item-del {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 集合ラベル（円・アイテムと被らない外側の定位置に固定） */
+.venn-set-label {
+  position: absolute;
+  z-index: 2;
+  pointer-events: auto; /* 編集のためクリックを受ける */
+  padding: 4px 12px;
+  background: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  max-width: 160px;
+  word-break: break-word;
+  text-align: center;
+}
+.venn-set-label.is-editing {
+  cursor: text;
+  background: var(--color-primary-light);
+}
+
+/* 定位置：2集合=左上/右上、3集合=上/左下/右下 */
+.venn-set-label--tl { top: 10px;    left: 10px; }
+.venn-set-label--tr { top: 10px;    right: 10px; }
+.venn-set-label--t  { top: 10px;    left: 50%; transform: translateX(-50%); }
+.venn-set-label--bl { bottom: 10px; left: 10px; }
+.venn-set-label--br { bottom: 10px; right: 10px; }
