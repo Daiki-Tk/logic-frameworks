@@ -294,17 +294,21 @@ class FlowEngine {
    * render後・resize時・fonts.ready後・編集確定後・追加/削除/並べ替え後に呼ばれる。
    */
   _redrawLines() {
-    const wrapper = this._wrapperEl;
+    // SVG(.flow-lines)は .flow-canvas の子で原点はcanvas左上。
+    // よって座標もSVGサイズも canvas 基準に統一する。
+    // （wrapper基準だと cycle の margin:0 auto 中央寄せ分だけ矢印が右へずれ、
+    //   かつ過大サイズSVGで余計な横スクロールが出ていた）
+    const ref = this._canvasEl;
     const svg = this._svgEl;
-    if (!wrapper || !svg) return;
+    if (!ref || !svg) return;
 
     // 既存内容を消し、計測前に一旦0サイズへ（SVG自身がscrollWidthを膨らませるのを防ぐ）
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     svg.setAttribute('width', 0);
     svg.setAttribute('height', 0);
 
-    const w = wrapper.scrollWidth;
-    const h = wrapper.scrollHeight;
+    const w = ref.scrollWidth;  // cycle≈S / linear=コンテンツ幅
+    const h = ref.scrollHeight;
     svg.setAttribute('width', w);
     svg.setAttribute('height', h);
     svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
@@ -316,9 +320,10 @@ class FlowEngine {
     const N = steps.length;
     if (N < 2) return; // N=1 は矢印なし
 
-    const wrapRect = wrapper.getBoundingClientRect();
-    const toX = (clientX) => clientX - wrapRect.left + wrapper.scrollLeft;
-    const toY = (clientY) => clientY - wrapRect.top + wrapper.scrollTop;
+    // canvas 基準の相対座標（スクロール不変なので scrollLeft/Top は加えない）
+    const refRect = ref.getBoundingClientRect();
+    const toX = (clientX) => clientX - refRect.left;
+    const toY = (clientY) => clientY - refRect.top;
 
     const isCycle = this.config.layout === 'cycle';
     // 描画する辺の本数：linear は N-1、cycle は N（最後→最初を含む）
