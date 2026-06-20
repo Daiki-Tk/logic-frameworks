@@ -3,25 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ロジカルシンキング フレームワーク集</title>
-  <!-- Google Fonts: Noto Sans JP -->
+  <title>緊急度/重要度マトリクス | ロジカルシンキング フレームワーク集</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!--
-    TODO: ここに実装する予定のコンテンツ
-    1. ヘッダー（サイトタイトル・ナビゲーション）
-    2. 検索バー・カテゴリフィルター
-    3. フレームワーク一覧カード（85種類）
-       - data/frameworks.json を読み込んで動的に生成する
-       - 各カードクリックで対応するエンジンページへ遷移
-    4. フッター（著作権表示など）
-  -->
-  <h1>ロジカルシンキング フレームワーク集</h1>
-  <p>（準備中）ビジネスで使える思考フレームワークを実際に編集・保存できるWebツール集です。</p>
+
+  <!-- マトリクスを描画するコンテナ -->
+  <div id="matrix-container"></div>
+
+  <!-- 操作ガイド -->
+  <div class="matrix-hint">
+    <span>マトリクス上をクリックして付箋を追加</span>
+    <span>付箋をダブルクリックでテキスト編集</span>
+    <span>付箋をドラッグして移動</span>
+    <span>付箋を選択してDeleteキーで削除</span>
+    <span>軸ラベルをクリックして編集</span>
+  </div>
 
   <script src="js/storage.js"></script>
+  <script src="js/engines/matrix.js"></script>
+  <script>
+    // 「緊急度/重要度マトリクス」の初期データ定義
+    // この定数は matrix.js の reset() からも参照する
+    const DEFAULT_MATRIX_CONFIG = {
+      id: "urgent-important-matrix",
+      type: "matrix",
+      title: "緊急度/重要度マトリクス",
+      axes: {
+        x: { left: "緊急度 低", right: "緊急度 高" },
+        y: { top: "重要度 高", bottom: "重要度 低" }
+      },
+      quadrants: {
+        topRight:    "すぐやる",
+        topLeft:     "計画してやる",
+        bottomRight: "人に任せる",
+        bottomLeft:  "やめる"
+      },
+      items: [
+        { id: "sample1", text: "資料提出",   x: 0.75, y: 0.25 },
+        { id: "sample2", text: "戦略立案",   x: 0.28, y: 0.22 },
+        { id: "sample3", text: "会議の準備", x: 0.72, y: 0.72 },
+        { id: "sample4", text: "不要な作業", x: 0.28, y: 0.75 }
+      ]
+    };
+
+    // エンジンを初期化（保存データがあれば自動復元）
+    const engine = new MatrixEngine(
+      document.getElementById('matrix-container'),
+      DEFAULT_MATRIX_CONFIG
+    );
+    engine.init();
+  </script>
+
 </body>
 </html>

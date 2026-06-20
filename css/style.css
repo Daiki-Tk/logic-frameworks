@@ -1,24 +1,336 @@
+/* ─────────────────────────────────────────
+   CSS変数（カラーパレット・フォント）
+───────────────────────────────────────── */
+:root {
+  --color-primary:     #2563EB; /* メインカラー：知的で信頼感のある青 */
+  --color-primary-light: #DBEAFE;
+  --color-primary-dark:  #1D4ED8;
+  --color-danger:      #EF4444;
+  --color-danger-dark: #DC2626;
+  --color-text:        #1E293B;
+  --color-text-muted:  #64748B;
+  --color-border:      #CBD5E1;
+  --color-bg:          #F8FAFC;
+  --color-white:       #FFFFFF;
+  --color-quadrant-tr: #EFF6FF; /* 右上：すぐやる */
+  --color-quadrant-tl: #F0FDF4; /* 左上：計画してやる */
+  --color-quadrant-br: #FFF7ED; /* 右下：人に任せる */
+  --color-quadrant-bl: #FEF2F2; /* 左下：やめる */
+
+  --font-main: 'Noto Sans JP', sans-serif;
+  --radius:    8px;
+  --shadow:    0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* ─────────────────────────────────────────
+   リセット・ベーススタイル
+───────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  padding: 24px;
+}
+
+/* ─────────────────────────────────────────
+   ボタン
+───────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.btn-primary:hover { background: var(--color-primary-dark); }
+
+.btn-secondary {
+  background: var(--color-white);
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+}
+.btn-secondary:hover { background: var(--color-primary-light); }
+
+.btn-danger {
+  background: var(--color-white);
+  color: var(--color-danger);
+  border: 1.5px solid var(--color-danger);
+}
+.btn-danger:hover { background: #FEF2F2; }
+
+/* ─────────────────────────────────────────
+   ツールバー
+───────────────────────────────────────── */
+.matrix-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.matrix-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text);
+  flex: 1;
+  min-width: 0; /* flexアイテムが縮小できるようにする */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─────────────────────────────────────────
+   マトリクス本体レイアウト
+───────────────────────────────────────── */
+
 /*
-  style.css - 共通スタイルシート
-
-  TODO: ここに実装する予定のスタイル
-
-  1. CSS変数（カラーパレット・フォント）
-     --color-primary: #2563EB  メインカラー（青）
-     --color-bg: #F8FAFC       背景色
-     --font-main: 'Noto Sans JP', sans-serif
-
-  2. リセット・ベーススタイル
-
-  3. レイアウト
-     - ヘッダー
-     - フレームワーク一覧グリッド
-     - フッター
-
-  4. コンポーネント
-     - フレームワークカード
-     - 検索バー・フィルター
-     - 編集可能フィールド（枠線をはっきりさせてUIを直感的に）
-
-  5. 各エンジン共通のキャンバス・編集UIスタイル
+  grid レイアウト：
+      [空]      [top label]  [空]
+  [left label]  [matrix]  [right label]
+      [空]      [bot label]  [空]
 */
+.matrix-wrapper {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  grid-template-rows: 48px 1fr 48px;
+  gap: 0;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+}
+
+/* 軸ラベルの共通スタイル */
+.matrix-axis-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 4px 8px;
+  text-align: center;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1.3;
+  user-select: none;
+}
+
+.matrix-axis-label:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.matrix-axis-label.is-editing {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  outline: 2px solid var(--color-primary);
+  border-radius: 6px;
+  cursor: text;
+}
+
+/* 縦書き（左右ラベル） */
+.matrix-axis-label--left,
+.matrix-axis-label--right {
+  writing-mode: vertical-rl;
+  grid-row: 2;
+}
+
+.matrix-axis-label--left  { grid-column: 1; transform: rotate(180deg); }
+.matrix-axis-label--right { grid-column: 3; }
+.matrix-axis-label--top   { grid-column: 2; grid-row: 1; }
+.matrix-axis-label--bottom{ grid-column: 2; grid-row: 3; }
+
+/* ─────────────────────────────────────────
+   マトリクスグリッド（4象限）
+───────────────────────────────────────── */
+.matrix-grid {
+  grid-column: 2;
+  grid-row: 2;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+/* 象限セル */
+.matrix-quadrant {
+  position: relative;
+  border: 1px solid var(--color-border);
+  min-height: 0;
+}
+
+.matrix-quadrant--topLeft    { background: var(--color-quadrant-tl); }
+.matrix-quadrant--topRight   { background: var(--color-quadrant-tr); }
+.matrix-quadrant--bottomLeft { background: var(--color-quadrant-bl); }
+.matrix-quadrant--bottomRight{ background: var(--color-quadrant-br); }
+
+/* 象限ラベル（右下に薄く表示） */
+.quadrant-label {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-border);
+  pointer-events: none;
+  letter-spacing: 0.03em;
+}
+
+/* 中央軸線（十字） */
+.matrix-axis--h,
+.matrix-axis--v {
+  position: absolute;
+  background: var(--color-border);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.matrix-axis--h {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.matrix-axis--v {
+  left: 50%;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  transform: translateX(-50%);
+}
+
+/* ─────────────────────────────────────────
+   付箋レイヤー
+───────────────────────────────────────── */
+.matrix-item-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+/* ─────────────────────────────────────────
+   付箋
+───────────────────────────────────────── */
+.matrix-item {
+  position: absolute;
+  transform: translate(-50%, -50%); /* 座標は付箋の中心 */
+  background: var(--color-white);
+  border: 2px solid var(--color-primary);
+  border-radius: 6px;
+  padding: 6px 10px;
+  min-width: 64px;
+  max-width: 120px;
+  box-shadow: var(--shadow);
+  cursor: grab;
+  user-select: none;
+  z-index: 10;
+  transition: box-shadow 0.15s, transform 0.1s;
+}
+
+.matrix-item:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary-dark);
+}
+
+/* 選択状態 */
+.matrix-item.is-selected {
+  border-color: var(--color-primary-dark);
+  box-shadow: 0 0 0 3px var(--color-primary-light), var(--shadow-md);
+}
+
+/* ドラッグ中：浮き上がる視覚効果 */
+.matrix-item.is-dragging {
+  cursor: grabbing;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+  transform: translate(-50%, -50%) scale(1.05);
+  z-index: 100;
+}
+
+/* 編集中 */
+.matrix-item.is-editing {
+  cursor: text;
+}
+
+.matrix-item-text {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text);
+  text-align: center;
+  word-break: break-all;
+  line-height: 1.4;
+  outline: none;
+  min-height: 1em;
+}
+
+/* ─────────────────────────────────────────
+   トースト通知
+───────────────────────────────────────── */
+.matrix-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: var(--color-text);
+  color: var(--color-white);
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.matrix-toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─────────────────────────────────────────
+   操作ガイド（ヒント）
+───────────────────────────────────────── */
+.matrix-hint {
+  max-width: 800px;
+  margin: 16px auto 0;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.matrix-hint span::before {
+  content: '• ';
+}
