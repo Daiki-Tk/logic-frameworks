@@ -16,9 +16,16 @@ class MatrixEngine {
    */
   constructor(containerEl, config) {
     this.container = containerEl;
-    this.config = JSON.parse(JSON.stringify(config)); // ディープコピー
+    this.config = JSON.parse(JSON.stringify(config)); // ディープコピー（編集対象）
+    // リセット用に初期configをインスタンスに保持しておく。
+    // これによりグローバル定数に依存せず、複数マトリクス配置時も
+    // それぞれ正しい初期値へ戻せる（frameworks.json流し込み対応）。
+    this._defaultConfig = JSON.parse(JSON.stringify(config));
     this.selectedItemId = null; // 現在選択中の付箋ID
-    this.dragState = null;      // ドラッグ中の状態 { id, startX, startY, origX, origY }
+    this.dragState = null;      // ドラッグ中の状態 { id, pointerId, layerRect, offsetX, offsetY }
+
+    // ツールバーの「削除」ボタン参照（選択状態に応じて活性/非活性を切り替える）
+    this._deleteBtn = null;
   }
 
   /** 初期化：保存データがあれば復元、なければ config のまま描画 */
@@ -52,14 +59,37 @@ class MatrixEngine {
     title.textContent = this.config.title;
 
     const btnSave = this._createButton('保存', 'btn-primary', () => this.save());
+    const btnDelete = this._createButton('削除', 'btn-danger', () => this._deleteSelected());
     const btnExport = this._createButton('JSONエクスポート', 'btn-secondary', () => this.exportJSON());
     const btnReset = this._createButton('リセット', 'btn-danger', () => this.reset());
 
+    // 削除ボタンは付箋が選択されているときのみ有効。
+    // render() で作り直されるため、参照を保持して状態を反映し直す。
+    this._deleteBtn = btnDelete;
+    this._updateDeleteBtnState();
+
     bar.appendChild(title);
     bar.appendChild(btnSave);
+    bar.appendChild(btnDelete);
     bar.appendChild(btnExport);
     bar.appendChild(btnReset);
     return bar;
+  }
+
+  /** 選択中の付箋を削除する（ツールバーの削除ボタンから呼ばれる） */
+  _deleteSelected() {
+    if (!this.selectedItemId) {
+      this._showToast('削除する付箋を選択してください');
+      return;
+    }
+    this.deleteItem(this.selectedItemId);
+  }
+
+  /** 削除ボタンの活性/非活性を選択状態に合わせて更新する */
+  _updateDeleteBtnState() {
+    if (this._deleteBtn) {
+      this._deleteBtn.disabled = !this.selectedItemId;
+    }
   }
 
   /** マトリクス本体（軸ラベル＋4象限）を生成する */
@@ -130,9 +160,8 @@ class MatrixEngine {
     wrapper.appendChild(rightLabel);
     wrapper.appendChild(bottomLabel);
 
-    // ドロップ処理（ドラッグ終了時の座標確定）
-    document.addEventListener('mousemove', (e) => this._onDragMove(e));
-    document.addEventListener('mouseup', (e) => this._onDragEnd(e));
+    // ※ ドラッグ中の move/up はポインタキャプチャで付箋自身が受け取るため、
+    //    ここで document へリスナーを登録しない（render毎の重複登録を回避）。
 
     this._matrixEl = matrix;
     this._itemLayerEl = itemLayer;
@@ -176,11 +205,15 @@ class MatrixEngine {
       this.editItem(item.id);
     });
 
-    // マウスダウンでドラッグ開始
-    el.addEventListener('mousedown', (e) => {
+    // ポインタダウンでドラッグ開始（マウス・タッチ・ペン共通）
+    el.addEventListener('pointerdown', (e) => {
       e.stopPropagation();
       this._onDragStart(e, item.id);
     });
+    // ドラッグ中の移動・終了はキャプチャした付箋自身が受け取る
+    el.addEventListener('pointermove', (e) => this._onDragMove(e));
+    el.addEventListener('pointerup', (e) => this._onDragEnd(e));
+    el.addEventListener('pointercancel', (e) => this._onDragEnd(e));
 
     return el;
   }
@@ -276,6 +309,7 @@ class MatrixEngine {
     const el = this._getItemEl(id);
     if (el) el.remove();
     this.selectedItemId = null;
+    this._updateDeleteBtnState();
   }
 
   /** 付箋を選択状態にする */
@@ -288,6 +322,16 @@ class MatrixEngine {
     this.selectedItemId = id;
     const el = this._getItemEl(id);
     if (el) el.classList.add('is-selected');
+    this._updateDeleteBtnState();
+  }
+
+  /** 付箋の選択を解除する */
+  _deselectItem() {
+    if (!this.selectedItemId) return;
+    const el = this._getItemEl(this.selectedItemId);
+    if (el) el.classList.remove('is-selected');
+    this.selectedItemId = null;
+    this._updateDeleteBtnState();
   }
 
   // ─────────────────────────────────────────
@@ -344,9 +388,14 @@ class MatrixEngine {
     const el = this._getItemEl(id);
     el.classList.add('is-dragging');
 
+    // ポインタをこの付箋にキャプチャし、指やカーソルが要素外へ出ても
+    // move/up を付箋自身が受け取れるようにする（document登録が不要になる）。
+    el.setPointerCapture(e.pointerId);
+
     const rect = this._itemLayerEl.getBoundingClientRect();
     this.dragState = {
       id,
+      pointerId: e.pointerId,
       layerRect: rect,
       offsetX: e.clientX - el.getBoundingClientRect().left,
       offsetY: e.clientY - el.getBoundingClientRect().top,
@@ -354,7 +403,7 @@ class MatrixEngine {
   }
 
   _onDragMove(e) {
-    if (!this.dragState) return;
+    if (!this.dragState || e.pointerId !== this.dragState.pointerId) return;
     const { id, layerRect, offsetX, offsetY } = this.dragState;
     const el = this._getItemEl(id);
     if (!el) return;
@@ -369,9 +418,13 @@ class MatrixEngine {
   }
 
   _onDragEnd(e) {
-    if (!this.dragState) return;
+    if (!this.dragState || e.pointerId !== this.dragState.pointerId) return;
     const el = this._getItemEl(this.dragState.id);
-    if (el) el.classList.remove('is-dragging');
+    if (el) {
+      el.classList.remove('is-dragging');
+      // キャプチャを解放（capture済みでない場合の例外は無視）
+      try { el.releasePointerCapture(e.pointerId); } catch (_) {}
+    }
     this.dragState = null;
   }
 
@@ -380,27 +433,25 @@ class MatrixEngine {
   // ─────────────────────────────────────────
 
   _bindGlobalEvents() {
+    // 削除トリガーは Delete キーのみに限定する。
+    // Backspace は文字入力の感覚で押されやすく誤削除を招くため対象外。
     document.addEventListener('keydown', (e) => {
-      if ((e.key === 'Delete' || e.key === 'Backspace') && this.selectedItemId) {
+      if (e.key === 'Delete' && this.selectedItemId) {
         // テキスト編集中は削除しない
         const active = document.activeElement;
         if (active && (active.contentEditable === 'true' || active.tagName === 'INPUT')) return;
         this.deleteItem(this.selectedItemId);
       }
       // Escape で選択解除
-      if (e.key === 'Escape' && this.selectedItemId) {
-        const el = this._getItemEl(this.selectedItemId);
-        if (el) el.classList.remove('is-selected');
-        this.selectedItemId = null;
+      if (e.key === 'Escape') {
+        this._deselectItem();
       }
     });
 
     // マトリクス外クリックで選択解除
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.matrix-item') && this.selectedItemId) {
-        const el = this._getItemEl(this.selectedItemId);
-        if (el) el.classList.remove('is-selected');
-        this.selectedItemId = null;
+      if (!e.target.closest('.matrix-item')) {
+        this._deselectItem();
       }
     });
   }
@@ -428,7 +479,10 @@ class MatrixEngine {
   reset() {
     if (!confirm('リセットすると保存内容が消えます。よろしいですか？')) return;
     clearFramework(this.config.id);
-    this.config = JSON.parse(JSON.stringify(DEFAULT_MATRIX_CONFIG));
+    // グローバル定数ではなく、インスタンス保持の初期configへ戻す。
+    // これにより複数マトリクス配置時も各自の初期値へ正しく戻せる。
+    this.config = JSON.parse(JSON.stringify(this._defaultConfig));
+    this.selectedItemId = null;
     this.render();
   }
 

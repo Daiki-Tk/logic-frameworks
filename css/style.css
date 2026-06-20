@@ -59,6 +59,16 @@ body {
 
 .btn:active { transform: scale(0.97); }
 
+/* 無効化状態（例：付箋未選択時の削除ボタン） */
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn:disabled:hover {
+  background: var(--color-white);
+}
+
 .btn-primary {
   background: var(--color-primary);
   color: var(--color-white);
