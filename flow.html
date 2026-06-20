@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDCAサイクル | ロジカルシンキング フレームワーク集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- フローを描画するコンテナ -->
+  <div id="flow-container"></div>
+
+  <!-- 操作ガイド -->
+  <div class="lf-hint">
+    <span>ツールバーの「ステップを追加」で末尾に追加</span>
+    <span>カードにマウスを乗せると「◀ ＋ ▶」ボタンが表示</span>
+    <span>見出し・説明をそれぞれダブルクリックで編集</span>
+    <span>◀▶で並べ替え、＋で直後に追加</span>
+    <span>カードを選択してDeleteキーまたは削除ボタンで削除</span>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/engines/flow.js"></script>
+  <script>
+    // 「PDCAサイクル」の初期データ定義
+    // layout を "linear" にすると順次フロー（左→右）として描画される。
+    // ※ この定数は初期データ。FlowEngine 側は参照せず、
+    //   リセットは内部に保持した初期configを使う。
+    const DEFAULT_FLOW_CONFIG = {
+      id: "pdca-sample",
+      type: "flow",
+      title: "PDCAサイクル",
+      layout: "cycle", // "linear"=順次フロー / "cycle"=循環フロー
+      steps: [
+        { id: "s1", title: "Plan",  text: "目標と計画を立てる" },
+        { id: "s2", title: "Do",    text: "計画を実行する" },
+        { id: "s3", title: "Check", text: "結果を評価する" },
+        { id: "s4", title: "Act",   text: "改善して次へ活かす" }
+      ]
+    };
+
+    // エンジンを初期化（保存データがあれば自動復元）
+    const engine = new FlowEngine(
+      document.getElementById('flow-container'),
+      DEFAULT_FLOW_CONFIG
+    );
+    engine.init();
+  </script>
+
+</body>
+</html>
