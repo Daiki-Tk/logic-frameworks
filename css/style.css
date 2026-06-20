@@ -993,3 +993,197 @@ body {
 .venn-set-label--t  { top: 10px;    left: 50%; transform: translateX(-50%); }
 .venn-set-label--bl { bottom: 10px; left: 10px; }
 .venn-set-label--br { bottom: 10px; right: 10px; }
+
+/* ─────────────────────────────────────────
+   型F：時系列/線表型エンジン
+───────────────────────────────────────── */
+
+/* スクロールコンテナ（列が多い時は横スクロール） */
+.timeline-wrapper {
+  overflow-x: auto;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-white);
+  box-shadow: var(--shadow);
+  max-width: 100%;
+}
+
+/* グリッド本体（列はJSで grid-template-columns を設定） */
+.timeline-grid {
+  display: grid;
+  grid-auto-rows: minmax(44px, auto);
+  min-width: max-content;
+}
+
+/* 左上コーナー（行・列ともに固定したいので最前面） */
+.timeline-corner {
+  position: sticky;
+  left: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  border-right: 2px solid var(--color-border);
+  border-bottom: 2px solid var(--color-border);
+}
+
+/* 目盛りヘッダーセル */
+.timeline-scale-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border-bottom: 2px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  white-space: nowrap;
+  text-align: center;
+}
+.timeline-scale-cell.is-editing {
+  cursor: text;
+  background: var(--color-primary-light);
+}
+
+/* 行見出し（タスク名・左固定列） */
+.timeline-rowhead {
+  position: sticky;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--color-white);
+  border-right: 2px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  user-select: none;
+}
+.timeline-rowhead.is-selected {
+  background: var(--color-primary-light);
+}
+.timeline-rowhead-label {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+  outline: none;
+  word-break: break-word;
+  min-height: 1em;
+}
+.timeline-rowhead.is-editing .timeline-rowhead-label {
+  cursor: text;
+}
+
+/* 背景セル（グリッド線） */
+.timeline-cell {
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-white);
+}
+
+/* バー（grid-column で配置） */
+.timeline-bar {
+  position: relative;
+  align-self: center;
+  height: 28px;
+  margin: 0 2px;
+  display: flex;
+  align-items: center;
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary-dark);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  cursor: grab;
+  user-select: none;
+  z-index: 2;
+  overflow: hidden;
+  transition: box-shadow 0.15s;
+}
+.timeline-bar:hover {
+  box-shadow: var(--shadow-md);
+}
+.timeline-bar.is-selected {
+  box-shadow: 0 0 0 3px var(--color-primary-light), var(--shadow-md);
+}
+.timeline-bar.is-dragging {
+  cursor: grabbing;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+  z-index: 50;
+}
+.timeline-bar-label {
+  flex: 1;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  pointer-events: none; /* ラベルはドラッグ判定を邪魔しない */
+}
+
+/* バー端の伸縮ハンドル */
+.timeline-bar-handle {
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  cursor: ew-resize;
+  z-index: 3;
+}
+.timeline-bar-handle--left  { left: 0; }
+.timeline-bar-handle--right { right: 0; }
+.timeline-bar-handle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 1px;
+}
+
+/* 行操作の小ボタン（ホバー/選択時に表示） */
+.timeline-controls {
+  display: flex;
+  gap: 3px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+.timeline-rowhead:hover .timeline-controls,
+.timeline-rowhead.is-selected .timeline-controls {
+  opacity: 1;
+  pointer-events: auto;
+}
+.timeline-mini-btn {
+  font-family: var(--font-main);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-white);
+  background: var(--color-primary);
+  border: 1.5px solid var(--color-white);
+  border-radius: 10px;
+  min-width: 20px;
+  padding: 1px 5px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: background 0.15s;
+}
+.timeline-mini-btn:hover {
+  background: var(--color-primary-dark);
+}

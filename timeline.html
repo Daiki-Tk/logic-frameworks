@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ロードマップ | ロジカルシンキング フレームワーク集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- タイムラインを描画するコンテナ -->
+  <div id="timeline-container"></div>
+
+  <!-- 操作ガイド -->
+  <div class="lf-hint">
+    <span>バー本体をドラッグして開始位置を移動（列にスナップ）</span>
+    <span>バー左右の端をドラッグして期間を伸縮</span>
+    <span>タスク名・目盛りをダブルクリックで編集</span>
+    <span>行にマウスを乗せると「▲▼ ＋ ✕」ボタンが表示</span>
+    <span>タスクを選択してDeleteキー／削除ボタン／✕で削除</span>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/engines/timeline.js"></script>
+  <script>
+    // 「ロードマップ」の初期データ定義
+    // scale=時間目盛りの配列（列を成す）、tasks=各行（start=開始列, span=占有列数）
+    // ※ この定数は初期データ。TimelineEngine 側は参照せず、
+    //   リセットは内部に保持した初期configを使う。
+    const DEFAULT_TIMELINE_CONFIG = {
+      id: "roadmap-sample",
+      type: "timeline",
+      title: "ロードマップ",
+      scale: ["Q1", "Q2", "Q3", "Q4"],
+      tasks: [
+        { id: "t1", label: "要件定義", start: 0, span: 1 },
+        { id: "t2", label: "設計",     start: 1, span: 2 },
+        { id: "t3", label: "開発",     start: 2, span: 2 },
+        { id: "t4", label: "テスト",   start: 3, span: 1 }
+      ]
+    };
+
+    // エンジンを初期化（保存データがあれば自動復元）
+    const engine = new TimelineEngine(
+      document.getElementById('timeline-container'),
+      DEFAULT_TIMELINE_CONFIG
+    );
+    engine.init();
+  </script>
+
+</body>
+</html>
