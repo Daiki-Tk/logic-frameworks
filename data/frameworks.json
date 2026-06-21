@@ -105,5 +105,96 @@
       { "id": "t3", "label": "開発", "start": 2, "span": 2 },
       { "id": "t4", "label": "テスト", "start": 3, "span": 1 }
     ]
+  },
+  {
+    "id": "swot-analysis",
+    "type": "matrix",
+    "category": "型A：マトリクス型",
+    "title": "SWOT分析",
+    "axes": {
+      "x": { "left": "内部環境", "right": "外部環境" },
+      "y": { "top": "プラス要因", "bottom": "マイナス要因" }
+    },
+    "quadrants": {
+      "topLeft": "強み（Strength）",
+      "topRight": "機会（Opportunity）",
+      "bottomLeft": "弱み（Weakness）",
+      "bottomRight": "脅威（Threat）"
+    },
+    "items": []
+  },
+  {
+    "id": "ppm-matrix",
+    "type": "matrix",
+    "category": "型A：マトリクス型",
+    "title": "PPM（プロダクト・ポートフォリオ・マネジメント）",
+    "axes": {
+      "x": { "left": "相対的市場シェア 低", "right": "相対的市場シェア 高" },
+      "y": { "top": "市場成長率 高", "bottom": "市場成長率 低" }
+    },
+    "quadrants": {
+      "topLeft": "拡大を検討",
+      "topRight": "主力として育成",
+      "bottomLeft": "撤退を検討",
+      "bottomRight": "安定収益源"
+    },
+    "items": []
+  },
+  {
+    "id": "ansoff-matrix",
+    "type": "matrix",
+    "category": "型A：マトリクス型",
+    "title": "アンゾフの成長マトリクス",
+    "axes": {
+      "x": { "left": "市場 既存", "right": "市場 新規" },
+      "y": { "top": "製品 新規", "bottom": "製品 既存" }
+    },
+    "quadrants": {
+      "topLeft": "新製品開発",
+      "topRight": "多角化",
+      "bottomLeft": "市場浸透",
+      "bottomRight": "新市場開拓"
+    },
+    "items": []
+  },
+  {
+    "id": "decision-matrix-effort-impact",
+    "type": "matrix",
+    "category": "型A：マトリクス型",
+    "title": "意思決定マトリクス（効果×実現性）",
+    "axes": {
+      "x": { "left": "実現のしやすさ 低", "right": "実現のしやすさ 高" },
+      "y": { "top": "効果の大きさ 大", "bottom": "効果の大きさ 小" }
+    },
+    "quadrants": {
+      "topLeft": "計画的に取り組む",
+      "topRight": "最優先で取り組む",
+      "bottomLeft": "見送る",
+      "bottomRight": "余力があれば"
+    },
+    "items": [
+      { "id": "d1", "text": "問い合わせフォームの改善", "x": 0.72, "y": 0.35 },
+      { "id": "d2", "text": "基幹システムの全面刷新", "x": 0.25, "y": 0.25 }
+    ]
+  },
+  {
+    "id": "risk-matrix",
+    "type": "matrix",
+    "category": "型A：マトリクス型",
+    "title": "リスクマトリクス（可能性×影響度）",
+    "axes": {
+      "x": { "left": "発生可能性 低", "right": "発生可能性 高" },
+      "y": { "top": "影響度 大", "bottom": "影響度 小" }
+    },
+    "quadrants": {
+      "topLeft": "監視",
+      "topRight": "重点管理",
+      "bottomLeft": "許容",
+      "bottomRight": "予防"
+    },
+    "items": [
+      { "id": "r1", "text": "主要取引先の離脱", "x": 0.7, "y": 0.2 },
+      { "id": "r2", "text": "為替の変動", "x": 0.7, "y": 0.55 }
+    ]
   }
 ]
