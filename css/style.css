@@ -1189,10 +1189,19 @@ body {
   border-radius: 1px;
 }
 
-/* 行操作の小ボタン（ホバー/選択時に表示） */
+/* 行操作の小ボタン（ホバー/選択時に表示する絶対配置オーバーレイ）。
+   インラインで幅を取らないので、タスク名が見出し列の幅を使える。 */
 .timeline-controls {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
   display: flex;
   gap: 3px;
+  padding: 3px 5px;
+  background: rgba(255, 255, 255, 0.92); /* 下のラベルを薄く隠して読めるように */
+  border-radius: 8px;
+  box-shadow: var(--shadow);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.15s;
