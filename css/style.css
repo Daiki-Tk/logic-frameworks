@@ -666,10 +666,16 @@ body {
 .flow-canvas {
   position: relative;
 }
-/* linear：コンテンツ幅に広がり、横スクロール可能 */
+/* linear：内容幅にフィットさせ、収まる時は中央寄せ／溢れる時だけ左から横スクロール。
+   以前は inline-block + min-width:100% で枠幅を強制し、左寄り＋不要な横スクロールが
+   出ていた。block + width:max-content + margin:auto なら、内容<枠なら中央、内容>枠なら
+   auto余白が0になり左端から表示され .flow-wrapper(overflow:auto) が左から横スクロールする
+   （flex+justify-content:center の左クリップを避ける）。box-sizing:border-box で padding込みでも
+   枠を超えないため、余白由来のごく短いバーは出ない。 */
 [data-layout="linear"].flow-canvas {
-  display: inline-block;
-  min-width: 100%;
+  display: block;
+  width: max-content;
+  margin: 0 auto;
   box-sizing: border-box;
   padding: 32px 40px;
 }
