@@ -107,23 +107,6 @@
     ]
   },
   {
-    "id": "swot-analysis",
-    "type": "matrix",
-    "category": "型A：マトリクス型",
-    "title": "SWOT分析",
-    "axes": {
-      "x": { "left": "内部環境", "right": "外部環境" },
-      "y": { "top": "プラス要因", "bottom": "マイナス要因" }
-    },
-    "quadrants": {
-      "topLeft": "強み（Strength）",
-      "topRight": "機会（Opportunity）",
-      "bottomLeft": "弱み（Weakness）",
-      "bottomRight": "脅威（Threat）"
-    },
-    "items": []
-  },
-  {
     "id": "ppm-matrix",
     "type": "matrix",
     "category": "型A：マトリクス型",
@@ -137,23 +120,6 @@
       "topRight": "主力として育成",
       "bottomLeft": "撤退を検討",
       "bottomRight": "安定収益源"
-    },
-    "items": []
-  },
-  {
-    "id": "ansoff-matrix",
-    "type": "matrix",
-    "category": "型A：マトリクス型",
-    "title": "アンゾフの成長マトリクス",
-    "axes": {
-      "x": { "left": "市場 既存", "right": "市場 新規" },
-      "y": { "top": "製品 新規", "bottom": "製品 既存" }
-    },
-    "quadrants": {
-      "topLeft": "新製品開発",
-      "topRight": "多角化",
-      "bottomLeft": "市場浸透",
-      "bottomRight": "新市場開拓"
     },
     "items": []
   },
