@@ -211,9 +211,12 @@ class TreeEngine {
    * render時・resize時・フォント確定時・テキスト/構造変更時に呼ばれる。
    */
   _redrawLines() {
-    const wrapper = this._wrapperEl;
+    // SVG(.tree-lines)は .tree-canvas の子で原点はcanvas左上。
+    // よって座標もSVGサイズも canvas 基準に統一する（flow の cycle修正と同じ）。
+    // wrapper基準だと canvas を margin:auto で中央寄せした分だけ線がずれるため。
+    const ref = this._canvasEl;
     const svg = this._svgEl;
-    if (!wrapper || !svg) return;
+    if (!ref || !svg) return;
 
     // 既存の線を消去し、計測前に一旦サイズを0にする
     // （SVG自身がscrollWidthを膨らませる自己フィードバックを防ぐ）
@@ -221,21 +224,21 @@ class TreeEngine {
     svg.setAttribute('width', 0);
     svg.setAttribute('height', 0);
 
-    // スクロール領域全体（見切れている部分も含む）にSVGを合わせる
-    const w = wrapper.scrollWidth;
-    const h = wrapper.scrollHeight;
+    // スクロール領域全体（見切れている部分も含む）にSVGを合わせる（canvas基準）
+    const w = ref.scrollWidth;
+    const h = ref.scrollHeight;
     svg.setAttribute('width', w);
     svg.setAttribute('height', h);
     svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
 
     const horizontal = this.config.direction !== 'vertical';
-    const wrapRect = wrapper.getBoundingClientRect();
+    const refRect = ref.getBoundingClientRect();
     const SVGNS = 'http://www.w3.org/2000/svg';
 
-    // ビューポート座標 → コンテンツ座標へ変換するヘルパー。
-    // スクロール量(scrollLeft/scrollTop)を加味し、横スクロール時も線がズレない。
-    const toContentX = (clientX) => clientX - wrapRect.left + wrapper.scrollLeft;
-    const toContentY = (clientY) => clientY - wrapRect.top + wrapper.scrollTop;
+    // canvas 基準の相対座標（スクロール不変なので scrollLeft/Top は加えない）。
+    // SVG原点（canvasの子・0,0）と一致するため、canvas中央寄せにも線が追従する。
+    const toContentX = (clientX) => clientX - refRect.left;
+    const toContentY = (clientY) => clientY - refRect.top;
 
     // ツリーを辿りながら、親→各子へ線を引く
     const walk = (node) => {

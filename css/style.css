@@ -495,11 +495,16 @@ body {
 }
 
 /* 内側コンテナ（ノードと線を内包し、コンテンツサイズに広がる） */
+/* 内容幅にフィットさせ、収まる時は中央寄せ／溢れる時だけ左から横スクロール。
+   以前は inline-block + min-width:100% で枠幅を強制し左詰め＋不要な横スクロールが
+   出ていた（型C linear と同因）。block + width:max-content + margin:auto で解消。
+   接続線は _redrawLines を canvas 基準に統一済みのため中央寄せに追従する。 */
 .tree-canvas {
   position: relative;
-  display: inline-block;
+  display: block;
+  width: max-content;
+  margin: 0 auto;
   padding: 32px 40px;
-  min-width: 100%;
   box-sizing: border-box;
 }
 
