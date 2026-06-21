@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>フレームワーク編集 | ロジカルシンキング フレームワーク集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ページ上部：一覧へ戻る -->
+  <div class="lf-pagenav">
+    <a class="lf-back" href="index.html">← 一覧へ戻る</a>
+  </div>
+
+  <!-- エンジンを描画するコンテナ -->
+  <div id="view-container"></div>
+
+  <!-- 簡易共通ガイド（型別の詳細ガイドはステップ6で） -->
+  <div class="lf-hint" id="view-hint" hidden>
+    <span>編集した内容は「保存」ボタンでこのブラウザに保存されます</span>
+    <span>「JSONエクスポート」で内容をファイル出力できます</span>
+    <span>「リセット」で初期状態に戻せます</span>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/engines/matrix.js"></script>
+  <script src="js/engines/tree.js"></script>
+  <script src="js/engines/flow.js"></script>
+  <script src="js/engines/sheet.js"></script>
+  <script src="js/engines/venn.js"></script>
+  <script src="js/engines/timeline.js"></script>
+  <script src="js/registry.js"></script>
+  <script>
+    // 案内メッセージを表示する（id無し・未発見・読み込み失敗時）
+    function showMessage(html) {
+      const c = document.getElementById('view-container');
+      c.innerHTML = ''; // 既存内容をクリア（ユーザー入力テキストは扱わないので固定HTMLでよい）
+      const box = document.createElement('div');
+      box.className = 'lf-message';
+      box.innerHTML = html;
+      c.appendChild(box);
+    }
+
+    (function () {
+      // (2) URLパラメータは URLSearchParams で取得（自動でdecodeされる）
+      const id = new URLSearchParams(location.search).get('id');
+      if (!id) {
+        showMessage('IDが指定されていません。<br><a href="index.html">← 一覧へ戻る</a>');
+        return;
+      }
+
+      // (1) fetch は先頭スラッシュなしの相対パス（GitHub Pages のサブパス対応）
+      // (3) 失敗時フォールバック：白画面で固まらせない
+      fetch('data/frameworks.json')
+        .then((res) => {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then((list) => {
+          const entry = list.find((e) => e.id === id);
+          if (!entry) {
+            showMessage('指定のフレームワークが見つかりませんでした。<br><a href="index.html">← 一覧へ戻る</a>');
+            return;
+          }
+          const Engine = REGISTRY[entry.type];
+          if (!Engine) {
+            showMessage('未対応の種別です（type: ' + String(entry.type) + '）。<br><a href="index.html">← 一覧へ戻る</a>');
+            return;
+          }
+          // エンジンを生成して描画
+          const engine = new Engine(document.getElementById('view-container'), entry);
+          engine.init();
+          document.title = entry.title + ' | ロジカルシンキング フレームワーク集';
+          document.getElementById('view-hint').hidden = false;
+        })
+        .catch((err) => {
+          console.error('フレームワークの読み込みに失敗:', err);
+          showMessage(
+            'データを読み込めませんでした。<br>' +
+            'ローカルで開く場合はサーバ経由（例：python -m http.server）でアクセスしてください。<br>' +
+            '<a href="index.html">← 一覧へ戻る</a>'
+          );
+        });
+    })();
+  </script>
+
+</body>
+</html>

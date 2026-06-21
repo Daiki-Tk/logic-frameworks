@@ -1,1 +1,109 @@
-[]
+[
+  {
+    "id": "urgent-important-matrix",
+    "type": "matrix",
+    "category": "型A：マトリクス型",
+    "title": "緊急度/重要度マトリクス",
+    "axes": {
+      "x": { "left": "緊急度 低", "right": "緊急度 高" },
+      "y": { "top": "重要度 高", "bottom": "重要度 低" }
+    },
+    "quadrants": {
+      "topRight": "すぐやる",
+      "topLeft": "計画してやる",
+      "bottomRight": "人に任せる",
+      "bottomLeft": "やめる"
+    },
+    "items": [
+      { "id": "sample1", "text": "資料提出", "x": 0.75, "y": 0.25 },
+      { "id": "sample2", "text": "戦略立案", "x": 0.28, "y": 0.22 },
+      { "id": "sample3", "text": "会議の準備", "x": 0.72, "y": 0.72 },
+      { "id": "sample4", "text": "不要な作業", "x": 0.28, "y": 0.75 }
+    ]
+  },
+  {
+    "id": "logic-tree-sample",
+    "type": "tree",
+    "category": "型B：ツリー/階層型",
+    "title": "ロジックツリー",
+    "direction": "horizontal",
+    "root": {
+      "id": "n_root",
+      "text": "売上を上げる",
+      "children": [
+        {
+          "id": "n_1",
+          "text": "客数を増やす",
+          "children": [
+            { "id": "n_1_1", "text": "新規顧客を増やす", "children": [] },
+            { "id": "n_1_2", "text": "リピートを増やす", "children": [] }
+          ]
+        },
+        {
+          "id": "n_2",
+          "text": "客単価を上げる",
+          "children": [
+            { "id": "n_2_1", "text": "単品の価格を上げる", "children": [] },
+            { "id": "n_2_2", "text": "まとめ買いを促す", "children": [] }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "pdca-sample",
+    "type": "flow",
+    "category": "型C：プロセス/フロー型",
+    "title": "PDCAサイクル",
+    "layout": "cycle",
+    "steps": [
+      { "id": "s1", "title": "Plan", "text": "目標と計画を立てる" },
+      { "id": "s2", "title": "Do", "text": "計画を実行する" },
+      { "id": "s3", "title": "Check", "text": "結果を評価する" },
+      { "id": "s4", "title": "Act", "text": "改善して次へ活かす" }
+    ]
+  },
+  {
+    "id": "5w1h-sample",
+    "type": "sheet",
+    "category": "型D：記入式シート型",
+    "title": "5W1H分析シート",
+    "layout": "row",
+    "fields": [
+      { "id": "f1", "label": "When（いつ）", "value": "" },
+      { "id": "f2", "label": "Where（どこで）", "value": "" },
+      { "id": "f3", "label": "Who（誰が）", "value": "" },
+      { "id": "f4", "label": "What（何を）", "value": "" },
+      { "id": "f5", "label": "Why（なぜ）", "value": "" },
+      { "id": "f6", "label": "How（どのように）", "value": "" }
+    ]
+  },
+  {
+    "id": "venn-sample",
+    "type": "venn",
+    "category": "型E：円/集合図型",
+    "title": "ベン図（2集合）",
+    "sets": [
+      { "id": "A", "label": "集合A" },
+      { "id": "B", "label": "集合B" }
+    ],
+    "items": [
+      { "id": "i1", "text": "Aだけの要素", "x": 0.30, "y": 0.50 },
+      { "id": "i2", "text": "共通の要素", "x": 0.50, "y": 0.50 },
+      { "id": "i3", "text": "Bだけの要素", "x": 0.70, "y": 0.50 }
+    ]
+  },
+  {
+    "id": "roadmap-sample",
+    "type": "timeline",
+    "category": "型F：時系列/線表型",
+    "title": "ロードマップ",
+    "scale": ["Q1", "Q2", "Q3", "Q4"],
+    "tasks": [
+      { "id": "t1", "label": "要件定義", "start": 0, "span": 1 },
+      { "id": "t2", "label": "設計", "start": 1, "span": 2 },
+      { "id": "t3", "label": "開発", "start": 2, "span": 2 },
+      { "id": "t4", "label": "テスト", "start": 3, "span": 1 }
+    ]
+  }
+]

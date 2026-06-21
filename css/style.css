@@ -348,6 +348,43 @@ body {
 }
 
 /* ─────────────────────────────────────────
+   ページナビ・案内メッセージ（index/view 共通クロム）
+───────────────────────────────────────── */
+.lf-pagenav {
+  max-width: 960px;
+  margin: 0 auto 16px;
+}
+.lf-back {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+.lf-back:hover {
+  text-decoration: underline;
+}
+
+/* 読み込み失敗・未発見などの案内ボックス */
+.lf-message {
+  max-width: 640px;
+  margin: 48px auto;
+  padding: 24px;
+  background: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--color-text);
+  text-align: center;
+}
+.lf-message a {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* ─────────────────────────────────────────
    型B：ツリー/階層型エンジン
 ───────────────────────────────────────── */
 
