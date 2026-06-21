@@ -275,7 +275,7 @@
     "type": "tree",
     "category": "型B：ツリー/階層型",
     "title": "なぜなぜ分析（5 Whys）",
-    "direction": "horizontal",
+    "direction": "vertical",
     "root": {
       "id": "n0", "text": "納期に間に合わなかった",
       "children": [
