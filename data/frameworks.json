@@ -162,5 +162,44 @@
       { "id": "r1", "text": "主要取引先の離脱", "x": 0.7, "y": 0.2 },
       { "id": "r2", "text": "為替の変動", "x": 0.7, "y": 0.55 }
     ]
+  },
+  {
+    "id": "swot-analysis",
+    "type": "sheet",
+    "category": "型D：記入式シート型",
+    "title": "SWOT分析",
+    "layout": "grid2x2",
+    "cells": [
+      { "id": "tl", "label": "強み（Strength）", "items": [] },
+      { "id": "tr", "label": "機会（Opportunity）", "items": [] },
+      { "id": "bl", "label": "弱み（Weakness）", "items": [] },
+      { "id": "br", "label": "脅威（Threat）", "items": [] }
+    ]
+  },
+  {
+    "id": "ansoff-matrix",
+    "type": "sheet",
+    "category": "型D：記入式シート型",
+    "title": "アンゾフの成長マトリクス",
+    "layout": "grid2x2",
+    "cells": [
+      { "id": "tl", "label": "新製品開発（既存市場 × 新製品）", "items": [] },
+      { "id": "tr", "label": "多角化（新規市場 × 新製品）", "items": [] },
+      { "id": "bl", "label": "市場浸透（既存市場 × 既存製品）", "items": [] },
+      { "id": "br", "label": "新市場開拓（新規市場 × 既存製品）", "items": [] }
+    ]
+  },
+  {
+    "id": "johari-window",
+    "type": "sheet",
+    "category": "型D：記入式シート型",
+    "title": "ジョハリの窓",
+    "layout": "grid2x2",
+    "cells": [
+      { "id": "tl", "label": "開放の窓（自分も他人も知っている）", "items": [] },
+      { "id": "tr", "label": "盲点の窓（自分は知らず他人は知っている）", "items": [] },
+      { "id": "bl", "label": "秘密の窓（自分は知り他人は知らない）", "items": [] },
+      { "id": "br", "label": "未知の窓（自分も他人も知らない）", "items": [] }
+    ]
   }
 ]
