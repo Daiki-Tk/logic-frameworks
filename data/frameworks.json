@@ -424,5 +424,45 @@
       { "id": "i3", "text": "需要はあるが苦手", "x": 0.22, "y": 0.70 },
       { "id": "i4", "text": "注力すべき領域", "x": 0.50, "y": 0.50 }
     ]
+  },
+  {
+    "id": "project-gantt",
+    "type": "timeline",
+    "category": "型F：時系列/線表型",
+    "title": "プロジェクト工程表",
+    "scale": ["Q1", "Q2", "Q3", "Q4"],
+    "tasks": [
+      { "id": "t1", "label": "要件定義", "start": 0, "span": 1 },
+      { "id": "t2", "label": "設計", "start": 1, "span": 1 },
+      { "id": "t3", "label": "開発", "start": 1, "span": 2 },
+      { "id": "t4", "label": "テスト", "start": 2, "span": 1 },
+      { "id": "t5", "label": "リリース", "start": 3, "span": 1 }
+    ]
+  },
+  {
+    "id": "business-plan-timeline",
+    "type": "timeline",
+    "category": "型F：時系列/線表型",
+    "title": "事業計画タイムライン（3カ年）",
+    "scale": ["1年目", "2年目", "3年目"],
+    "tasks": [
+      { "id": "t1", "label": "立ち上げ・市場参入", "start": 0, "span": 1 },
+      { "id": "t2", "label": "拡大・シェア獲得", "start": 1, "span": 1 },
+      { "id": "t3", "label": "安定・収益化", "start": 2, "span": 1 },
+      { "id": "t4", "label": "基盤投資", "start": 0, "span": 2 }
+    ]
+  },
+  {
+    "id": "learning-roadmap",
+    "type": "timeline",
+    "category": "型F：時系列/線表型",
+    "title": "スキル習得計画",
+    "scale": ["1か月目", "2か月目", "3か月目", "4か月目"],
+    "tasks": [
+      { "id": "t1", "label": "基礎を学ぶ", "start": 0, "span": 2 },
+      { "id": "t2", "label": "練習問題に取り組む", "start": 1, "span": 2 },
+      { "id": "t3", "label": "小さな作品を作る", "start": 2, "span": 2 },
+      { "id": "t4", "label": "振り返り・発展", "start": 3, "span": 1 }
+    ]
   }
 ]
