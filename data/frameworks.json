@@ -29,22 +29,22 @@
     "direction": "horizontal",
     "root": {
       "id": "n_root",
-      "text": "売上を上げる",
+      "title": "売上を上げる", "text": "",
       "children": [
         {
           "id": "n_1",
-          "text": "客数を増やす",
+          "title": "客数を増やす", "text": "",
           "children": [
-            { "id": "n_1_1", "text": "新規顧客を増やす", "children": [] },
-            { "id": "n_1_2", "text": "リピートを増やす", "children": [] }
+            { "id": "n_1_1", "title": "新規顧客を増やす", "text": "", "children": [] },
+            { "id": "n_1_2", "title": "リピートを増やす", "text": "", "children": [] }
           ]
         },
         {
           "id": "n_2",
-          "text": "客単価を上げる",
+          "title": "客単価を上げる", "text": "",
           "children": [
-            { "id": "n_2_1", "text": "単品の価格を上げる", "children": [] },
-            { "id": "n_2_2", "text": "まとめ買いを促す", "children": [] }
+            { "id": "n_2_1", "title": "単品の価格を上げる", "text": "", "children": [] },
+            { "id": "n_2_2", "title": "まとめ買いを促す", "text": "", "children": [] }
           ]
         }
       ]
@@ -277,12 +277,12 @@
     "title": "なぜなぜ分析（5 Whys）",
     "direction": "vertical",
     "root": {
-      "id": "n0", "text": "納期に間に合わなかった",
+      "id": "n0", "title": "納期に間に合わなかった", "text": "",
       "children": [
-        { "id": "n1", "text": "なぜ？ 作業着手が遅れた", "children": [
-          { "id": "n2", "text": "なぜ？ 前工程の完了待ちだった", "children": [
-            { "id": "n3", "text": "なぜ？ 依頼の優先順位が不明確だった", "children": [
-              { "id": "n4", "text": "なぜ？ 依頼ルールが決まっていなかった", "children": [] }
+        { "id": "n1", "title": "なぜ？ 作業着手が遅れた", "text": "", "children": [
+          { "id": "n2", "title": "なぜ？ 前工程の完了待ちだった", "text": "", "children": [
+            { "id": "n3", "title": "なぜ？ 依頼の優先順位が不明確だった", "text": "", "children": [
+              { "id": "n4", "title": "なぜ？ 依頼ルールが決まっていなかった", "text": "", "children": [] }
             ] }
           ] }
         ] }
@@ -296,15 +296,15 @@
     "title": "MECE分解ツリー",
     "direction": "horizontal",
     "root": {
-      "id": "n0", "text": "顧客",
+      "id": "n0", "title": "顧客", "text": "",
       "children": [
-        { "id": "n1", "text": "新規顧客", "children": [
-          { "id": "n1a", "text": "個人", "children": [] },
-          { "id": "n1b", "text": "法人", "children": [] }
+        { "id": "n1", "title": "新規顧客", "text": "", "children": [
+          { "id": "n1a", "title": "個人", "text": "", "children": [] },
+          { "id": "n1b", "title": "法人", "text": "", "children": [] }
         ] },
-        { "id": "n2", "text": "既存顧客", "children": [
-          { "id": "n2a", "text": "個人", "children": [] },
-          { "id": "n2b", "text": "法人", "children": [] }
+        { "id": "n2", "title": "既存顧客", "text": "", "children": [
+          { "id": "n2a", "title": "個人", "text": "", "children": [] },
+          { "id": "n2b", "title": "法人", "text": "", "children": [] }
         ] }
       ]
     }
@@ -316,15 +316,15 @@
     "title": "KPIツリー",
     "direction": "horizontal",
     "root": {
-      "id": "n0", "text": "売上（KGI）",
+      "id": "n0", "title": "売上（KGI）", "text": "",
       "children": [
-        { "id": "n1", "text": "客数", "children": [
-          { "id": "n1a", "text": "新規顧客数", "children": [] },
-          { "id": "n1b", "text": "既存顧客数", "children": [] }
+        { "id": "n1", "title": "客数", "text": "", "children": [
+          { "id": "n1a", "title": "新規顧客数", "text": "", "children": [] },
+          { "id": "n1b", "title": "既存顧客数", "text": "", "children": [] }
         ] },
-        { "id": "n2", "text": "客単価", "children": [
-          { "id": "n2a", "text": "購入点数", "children": [] },
-          { "id": "n2b", "text": "商品単価", "children": [] }
+        { "id": "n2", "title": "客単価", "text": "", "children": [
+          { "id": "n2a", "title": "購入点数", "text": "", "children": [] },
+          { "id": "n2b", "title": "商品単価", "text": "", "children": [] }
         ] }
       ]
     }
@@ -336,16 +336,16 @@
     "title": "ピラミッドストラクチャー",
     "direction": "vertical",
     "root": {
-      "id": "n0", "text": "結論：新サービスを導入すべき",
+      "id": "n0", "title": "結論：新サービスを導入すべき", "text": "",
       "children": [
-        { "id": "n1", "text": "根拠1：顧客の要望が多い", "children": [
-          { "id": "n1a", "text": "問い合わせが増加している", "children": [] }
+        { "id": "n1", "title": "根拠1：顧客の要望が多い", "text": "", "children": [
+          { "id": "n1a", "title": "問い合わせが増加している", "text": "", "children": [] }
         ] },
-        { "id": "n2", "text": "根拠2：競合が先行している", "children": [
-          { "id": "n2a", "text": "主要3社が既に提供", "children": [] }
+        { "id": "n2", "title": "根拠2：競合が先行している", "text": "", "children": [
+          { "id": "n2a", "title": "主要3社が既に提供", "text": "", "children": [] }
         ] },
-        { "id": "n3", "text": "根拠3：自社の強みを活かせる", "children": [
-          { "id": "n3a", "text": "既存基盤を流用できる", "children": [] }
+        { "id": "n3", "title": "根拠3：自社の強みを活かせる", "text": "", "children": [
+          { "id": "n3a", "title": "既存基盤を流用できる", "text": "", "children": [] }
         ] }
       ]
     }
@@ -357,16 +357,16 @@
     "title": "意思決定ツリー",
     "direction": "horizontal",
     "root": {
-      "id": "n0", "text": "新規事業をどう進めるか",
+      "id": "n0", "title": "新規事業をどう進めるか", "text": "",
       "children": [
-        { "id": "n1", "text": "自社単独で行う", "children": [
-          { "id": "n1a", "text": "自由度が高いが負担大", "children": [] }
+        { "id": "n1", "title": "自社単独で行う", "text": "", "children": [
+          { "id": "n1a", "title": "自由度が高いが負担大", "text": "", "children": [] }
         ] },
-        { "id": "n2", "text": "他社と提携する", "children": [
-          { "id": "n2a", "text": "早いが利益を分け合う", "children": [] }
+        { "id": "n2", "title": "他社と提携する", "text": "", "children": [
+          { "id": "n2a", "title": "早いが利益を分け合う", "text": "", "children": [] }
         ] },
-        { "id": "n3", "text": "外部に委託する", "children": [
-          { "id": "n3a", "text": "手間は減るが統制が弱い", "children": [] }
+        { "id": "n3", "title": "外部に委託する", "text": "", "children": [
+          { "id": "n3a", "title": "手間は減るが統制が弱い", "text": "", "children": [] }
         ] }
       ]
     }
