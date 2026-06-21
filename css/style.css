@@ -169,7 +169,9 @@ body {
   grid-row: 2;
 }
 
-.matrix-axis-label--left  { grid-column: 1; transform: rotate(180deg); }
+/* 左右とも vertical-rl の正立・同一向きに統一する。
+   以前は左だけ rotate(180deg) が付いて文字が上下反転していた（右が正しい向きの基準）。 */
+.matrix-axis-label--left  { grid-column: 1; }
 .matrix-axis-label--right { grid-column: 3; }
 .matrix-axis-label--top   { grid-column: 2; grid-row: 1; }
 .matrix-axis-label--bottom{ grid-column: 2; grid-row: 3; }
