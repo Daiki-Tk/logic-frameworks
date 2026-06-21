@@ -588,8 +588,14 @@ body {
   background: var(--color-primary);
   border-color: var(--color-primary-dark);
 }
-.tree-node.is-root .tree-node-text {
+.tree-node.is-root .tree-node-title {
   color: var(--color-white);
+}
+.tree-node.is-root .tree-node-text {
+  color: rgba(255, 255, 255, 0.85);
+}
+.tree-node.is-root .tree-node-text:empty:not(:focus)::before {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* 選択状態（型Aの付箋と同じ見た目） */
@@ -603,17 +609,38 @@ body {
   cursor: text;
 }
 
-.tree-node-text {
+/* 見出し（必須・太字） */
+.tree-node-title {
   display: block;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--color-text);
+  text-align: center;
+  line-height: 1.4;
+  outline: none;
+  min-height: 1em; /* 空でも潰れず線が刺さるよう最小高さを確保 */
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* 説明（任意・空可・小さめ薄色） */
+.tree-node-text {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--color-text-muted);
   text-align: center;
   line-height: 1.4;
   outline: none;
   min-height: 1em;
   white-space: normal;
   word-break: break-word;
+}
+/* 空の説明はプレースホルダ表示（編集中＝フォーカス時は出さない） */
+.tree-node-text:empty:not(:focus)::before {
+  content: '説明（任意）';
+  color: var(--color-border);
 }
 
 /* ノード操作の小ボタン（ホバー/選択時に表示） */

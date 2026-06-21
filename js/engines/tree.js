@@ -65,8 +65,31 @@ class TreeEngine {
   // 描画
   // ─────────────────────────────────────────
 
+  /**
+   * 旧スキーマ（text のみ）→新スキーマ（title+text）へ正規化する（冪等）。
+   * - title が無い／空文字 かつ text に中身あり → text を title へ昇格し text='' に。
+   * - title も text も無ければ title='新しい項目'、text='' を補う。
+   * ルートを含む全ノードを再帰的に処理する。古い localStorage 保存データや
+   * 移行前データを load しても壊れないようにするための後方互換。
+   */
+  _normalizeTree(node) {
+    if (!node) return;
+    if (!node.title && node.text) {
+      // text→title 寄せ
+      node.title = node.text;
+      node.text = '';
+    } else {
+      if (node.title == null || node.title === '') node.title = '新しい項目';
+      if (node.text == null) node.text = '';
+    }
+    (node.children || []).forEach(child => this._normalizeTree(child));
+  }
+
   /** ツリー全体を再描画する */
   render() {
+    // 旧形式データの後方互換（冪等）。描画前に必ず正規化する。
+    this._normalizeTree(this.config.root);
+
     this.container.innerHTML = '';
     this.container.appendChild(this._buildToolbar());
 
@@ -130,7 +153,7 @@ class TreeEngine {
 
   /**
    * ノードのサブツリーを再帰的に生成する
-   * @param {object} node - { id, text, children: [] }
+   * @param {object} node - { id, title, text, children: [] }
    * @param {boolean} isRoot - ルートノードかどうか
    * @returns {HTMLElement} .tree-subtree 要素
    */
@@ -144,11 +167,27 @@ class TreeEngine {
     box.dataset.id = node.id;
     if (isRoot) box.classList.add('is-root');
 
-    const text = document.createElement('span');
-    text.className = 'tree-node-text';
-    // ユーザーテキストは textContent のみで描画（XSS対策。innerHTML禁止）
-    text.textContent = node.text;
-    box.appendChild(text);
+    // 見出し（必須）— ダブルクリックで編集（型C flow と同型）
+    const titleEl = document.createElement('div');
+    titleEl.className = 'tree-node-title';
+    titleEl.textContent = node.title; // textContent のみ（XSS対策。innerHTML禁止）
+    titleEl.title = 'ダブルクリックで見出しを編集';
+    titleEl.addEventListener('dblclick', (e) => {
+      e.stopPropagation();
+      this.editNode(node.id, 'title');
+    });
+    box.appendChild(titleEl);
+
+    // 説明（任意・空可）— ダブルクリックで編集。空はCSSでプレースホルダ表示
+    const textEl = document.createElement('div');
+    textEl.className = 'tree-node-text';
+    textEl.textContent = node.text || '';
+    textEl.title = 'ダブルクリックで説明を編集';
+    textEl.addEventListener('dblclick', (e) => {
+      e.stopPropagation();
+      this.editNode(node.id, 'text');
+    });
+    box.appendChild(textEl);
 
     // ── ノード操作の小ボタン（ホバー/選択時に表示）
     const controls = document.createElement('div');
@@ -293,10 +332,10 @@ class TreeEngine {
   addChild(parentId) {
     const found = this._findNode(parentId);
     if (!found) return;
-    const newNode = { id: this._genId(), text: '新しい項目', children: [] };
+    const newNode = { id: this._genId(), title: '新しい項目', text: '', children: [] };
     found.node.children.push(newNode);
     this.render();           // 構造が変わったので再描画（接続線も再計算される）
-    this.editNode(newNode.id);
+    this.editNode(newNode.id, 'title'); // 追加直後は見出しを編集
   }
 
   /**
@@ -311,50 +350,58 @@ class TreeEngine {
       this._showToast('ルートには兄弟を追加できません');
       return;
     }
-    const newNode = { id: this._genId(), text: '新しい項目', children: [] };
+    const newNode = { id: this._genId(), title: '新しい項目', text: '', children: [] };
     const idx = found.parent.children.indexOf(found.node);
     found.parent.children.splice(idx + 1, 0, newNode); // 直後に挿入
     this.render();
-    this.editNode(newNode.id);
+    this.editNode(newNode.id, 'title'); // 追加直後は見出しを編集
   }
 
   /**
-   * ノードのテキストをインライン編集する
+   * ノードの見出し/説明をインライン編集する（型C flow と同型）
    * @param {string} nodeId - ノードID
+   * @param {"title"|"text"} field - 編集対象（既定は title）
    */
-  editNode(nodeId) {
+  editNode(nodeId, field = 'title') {
     const found = this._findNode(nodeId);
     const box = this._getNodeEl(nodeId);
     if (!found || !box) return;
-    const textEl = box.querySelector('.tree-node-text');
+    const editEl = box.querySelector(field === 'text' ? '.tree-node-text' : '.tree-node-title');
 
-    textEl.contentEditable = 'true';
+    editEl.contentEditable = 'true';
     box.classList.add('is-editing');
-    textEl.focus();
+    editEl.focus();
 
     // テキストを全選択
     const range = document.createRange();
-    range.selectNodeContents(textEl);
+    range.selectNodeContents(editEl);
     const sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
 
     const finish = () => {
-      textEl.contentEditable = 'false';
+      editEl.contentEditable = 'false';
       box.classList.remove('is-editing');
-      found.node.text = textEl.textContent.trim() || '（空）';
-      textEl.textContent = found.node.text;
-      // テキスト変更でノード幅が変わるため接続線を引き直す
+      const value = editEl.textContent.trim();
+      if (field === 'title') {
+        // 見出しは必須。空で確定されたら既定文言に戻す（潰れ防止）。
+        found.node.title = value || '新しい項目';
+        editEl.textContent = found.node.title;
+      } else {
+        found.node.text = value; // 説明は空を許容（空ならCSSでプレースホルダ表示）
+        editEl.textContent = found.node.text;
+      }
+      // title/text 変更でノード寸法が変わるため接続線を引き直す
       this._redrawLines();
     };
 
-    textEl.addEventListener('blur', finish, { once: true });
-    textEl.addEventListener('keydown', (e) => {
+    editEl.addEventListener('blur', finish, { once: true });
+    editEl.addEventListener('keydown', (e) => {
       // Enter で確定（改行は許可しない）。
       // IME変換確定のEnterで誤確定しないよう e.isComposing でガード。
       if (e.key === 'Enter' && !e.isComposing) {
         e.preventDefault();
-        textEl.blur();
+        editEl.blur();
       }
     });
   }
