@@ -269,5 +269,106 @@
       { "id": "s4", "title": "実行", "text": "決めた対策を実行する" },
       { "id": "s5", "title": "振り返り", "text": "結果を評価し次に活かす" }
     ]
+  },
+  {
+    "id": "5-whys",
+    "type": "tree",
+    "category": "型B：ツリー/階層型",
+    "title": "なぜなぜ分析（5 Whys）",
+    "direction": "horizontal",
+    "root": {
+      "id": "n0", "text": "納期に間に合わなかった",
+      "children": [
+        { "id": "n1", "text": "なぜ？ 作業着手が遅れた", "children": [
+          { "id": "n2", "text": "なぜ？ 前工程の完了待ちだった", "children": [
+            { "id": "n3", "text": "なぜ？ 依頼の優先順位が不明確だった", "children": [
+              { "id": "n4", "text": "なぜ？ 依頼ルールが決まっていなかった", "children": [] }
+            ] }
+          ] }
+        ] }
+      ]
+    }
+  },
+  {
+    "id": "mece-tree",
+    "type": "tree",
+    "category": "型B：ツリー/階層型",
+    "title": "MECE分解ツリー",
+    "direction": "horizontal",
+    "root": {
+      "id": "n0", "text": "顧客",
+      "children": [
+        { "id": "n1", "text": "新規顧客", "children": [
+          { "id": "n1a", "text": "個人", "children": [] },
+          { "id": "n1b", "text": "法人", "children": [] }
+        ] },
+        { "id": "n2", "text": "既存顧客", "children": [
+          { "id": "n2a", "text": "個人", "children": [] },
+          { "id": "n2b", "text": "法人", "children": [] }
+        ] }
+      ]
+    }
+  },
+  {
+    "id": "kpi-tree",
+    "type": "tree",
+    "category": "型B：ツリー/階層型",
+    "title": "KPIツリー",
+    "direction": "horizontal",
+    "root": {
+      "id": "n0", "text": "売上（KGI）",
+      "children": [
+        { "id": "n1", "text": "客数", "children": [
+          { "id": "n1a", "text": "新規顧客数", "children": [] },
+          { "id": "n1b", "text": "既存顧客数", "children": [] }
+        ] },
+        { "id": "n2", "text": "客単価", "children": [
+          { "id": "n2a", "text": "購入点数", "children": [] },
+          { "id": "n2b", "text": "商品単価", "children": [] }
+        ] }
+      ]
+    }
+  },
+  {
+    "id": "pyramid-structure",
+    "type": "tree",
+    "category": "型B：ツリー/階層型",
+    "title": "ピラミッドストラクチャー",
+    "direction": "vertical",
+    "root": {
+      "id": "n0", "text": "結論：新サービスを導入すべき",
+      "children": [
+        { "id": "n1", "text": "根拠1：顧客の要望が多い", "children": [
+          { "id": "n1a", "text": "問い合わせが増加している", "children": [] }
+        ] },
+        { "id": "n2", "text": "根拠2：競合が先行している", "children": [
+          { "id": "n2a", "text": "主要3社が既に提供", "children": [] }
+        ] },
+        { "id": "n3", "text": "根拠3：自社の強みを活かせる", "children": [
+          { "id": "n3a", "text": "既存基盤を流用できる", "children": [] }
+        ] }
+      ]
+    }
+  },
+  {
+    "id": "decision-tree",
+    "type": "tree",
+    "category": "型B：ツリー/階層型",
+    "title": "意思決定ツリー",
+    "direction": "horizontal",
+    "root": {
+      "id": "n0", "text": "新規事業をどう進めるか",
+      "children": [
+        { "id": "n1", "text": "自社単独で行う", "children": [
+          { "id": "n1a", "text": "自由度が高いが負担大", "children": [] }
+        ] },
+        { "id": "n2", "text": "他社と提携する", "children": [
+          { "id": "n2a", "text": "早いが利益を分け合う", "children": [] }
+        ] },
+        { "id": "n3", "text": "外部に委託する", "children": [
+          { "id": "n3a", "text": "手間は減るが統制が弱い", "children": [] }
+        ] }
+      ]
+    }
   }
 ]
