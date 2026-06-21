@@ -1033,6 +1033,7 @@ body {
 
 /* 目盛りヘッダーセル */
 .timeline-scale-cell {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1052,6 +1053,37 @@ body {
 .timeline-scale-cell.is-editing {
   cursor: text;
   background: var(--color-primary-light);
+}
+.timeline-scale-label {
+  outline: none;
+  word-break: break-word;
+}
+/* 列削除の✕（ホバーで表示） */
+.timeline-scale-del {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-white);
+  background: var(--color-danger);
+  color: var(--color-white);
+  font-size: 10px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.timeline-scale-cell:hover .timeline-scale-del {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* 行見出し（タスク名・左固定列） */

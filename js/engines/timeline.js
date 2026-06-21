@@ -88,12 +88,30 @@ class TimelineEngine {
       cell.dataset.index = i;
       cell.style.gridRow = '1';
       cell.style.gridColumn = (i + 2);
-      cell.textContent = label; // textContent のみ（XSS対策）
       cell.title = 'ダブルクリックで目盛りを編集';
-      cell.addEventListener('dblclick', (e) => {
+
+      // ラベルは専用spanに入れる（セル直下に✕ボタンを共存させるため）
+      const labelEl = document.createElement('span');
+      labelEl.className = 'timeline-scale-label';
+      labelEl.textContent = label; // textContent のみ（XSS対策）
+      labelEl.addEventListener('dblclick', (e) => {
         e.stopPropagation();
         this.editScaleLabel(i);
       });
+      cell.appendChild(labelEl);
+
+      // 列削除の✕（ホバーで表示。行の✕と同作法。タスク選択とは独立）
+      const del = document.createElement('button');
+      del.className = 'timeline-scale-del';
+      del.textContent = '✕';
+      del.title = 'この期間（列）を削除';
+      del.addEventListener('pointerdown', (e) => e.stopPropagation());
+      del.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.deleteScale(i);
+      });
+      cell.appendChild(del);
+
       grid.appendChild(cell);
     });
 
@@ -146,6 +164,8 @@ class TimelineEngine {
 
     const btnSave = this._createButton('保存', 'btn-primary', () => this.save());
     const btnAdd = this._createButton('タスクを追加', 'btn-secondary', () => this.addTask(null));
+    // 期間（列）の追加。タスク選択とは独立。削除ボタンのdisabled連動には絡めない。
+    const btnAddScale = this._createButton('期間を追加', 'btn-secondary', () => this.addScale());
     const btnDelete = this._createButton('削除', 'btn-danger', () => this._deleteSelected());
     const btnExport = this._createButton('JSONエクスポート', 'btn-secondary', () => this.exportJSON());
     const btnReset = this._createButton('リセット', 'btn-danger', () => this.reset());
@@ -156,6 +176,7 @@ class TimelineEngine {
     bar.appendChild(title);
     bar.appendChild(btnSave);
     bar.appendChild(btnAdd);
+    bar.appendChild(btnAddScale);
     bar.appendChild(btnDelete);
     bar.appendChild(btnExport);
     bar.appendChild(btnReset);
@@ -407,10 +428,59 @@ class TimelineEngine {
   editScaleLabel(index) {
     const cell = this._gridEl.querySelector(`.timeline-scale-cell[data-index="${index}"]`);
     if (!cell) return;
-    this._editInline(cell, cell, (text) => {
+    const labelEl = cell.querySelector('.timeline-scale-label');
+    if (!labelEl) return;
+    this._editInline(labelEl, cell, (text) => {
       this.config.scale[index] = text || '（目盛り）';
-      cell.textContent = this.config.scale[index];
+      labelEl.textContent = this.config.scale[index];
     });
+  }
+
+  /**
+   * 期間（列）を末尾に1つ追加し、追加した目盛りを編集モードへ。
+   * 既存タスクの start/span は変更しない（新列は空きとして増えるだけ）。
+   * タスク選択とは独立した操作（削除ボタンのdisabled連動には絡めない）。
+   */
+  addScale() {
+    this.config.scale.push('新しい期間');
+    const newIndex = this.config.scale.length - 1;
+    this.render();
+    this.editScaleLabel(newIndex);
+  }
+
+  /**
+   * 指定列を削除する。最低1列は残す。
+   * 削除後、新しい列数を基準に全タスクの start/span を再クランプする。
+   * @param {number} index - 削除する列インデックス
+   */
+  deleteScale(index) {
+    if (this.config.scale.length <= 1) {
+      this._showToast('期間は最低1つ必要です');
+      return;
+    }
+    const k = index;
+    this.config.scale.splice(k, 1); // 先に削除（以降は新しい列数で再クランプ）
+
+    this.config.tasks.forEach(t => {
+      const last = t.start + t.span - 1; // 削除前の占有最終列
+      if (k < t.start) {
+        // 削除列がバーより左：バーが1列左へ詰まる（span不変）
+        t.start -= 1;
+      } else if (k <= last) {
+        // 削除列がバーの占有範囲内：その列を1つ失う
+        t.span -= 1;
+        if (t.span < 1) t.span = 1; // span<1 になったら1に留める
+      }
+      // k > last：変更なし
+
+      // 新しい列数で共通クランプ（start∈[0,列数-1]・span∈[1,列数-start]）。
+      // _clampTask は this.config.scale.length（=削除後の列数）を参照する。
+      const c = this._clampTask(t.start, t.span);
+      t.start = c.start;
+      t.span = c.span;
+    });
+
+    this.render();
   }
 
   /**
