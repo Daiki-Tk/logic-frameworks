@@ -201,5 +201,73 @@
       { "id": "bl", "label": "秘密の窓（自分は知り他人は知らない）", "items": [] },
       { "id": "br", "label": "未知の窓（自分も他人も知らない）", "items": [] }
     ]
+  },
+  {
+    "id": "customer-journey",
+    "type": "flow",
+    "category": "型C：プロセス/フロー型",
+    "title": "カスタマージャーニー",
+    "layout": "linear",
+    "steps": [
+      { "id": "s1", "title": "認知", "text": "商品やサービスの存在を知る" },
+      { "id": "s2", "title": "興味関心", "text": "もっと知りたいと感じる" },
+      { "id": "s3", "title": "比較検討", "text": "他の選択肢と比べて吟味する" },
+      { "id": "s4", "title": "購入", "text": "購入・契約を決める" },
+      { "id": "s5", "title": "利用", "text": "実際に使って体験する" },
+      { "id": "s6", "title": "推奨", "text": "満足して周囲にすすめる" }
+    ]
+  },
+  {
+    "id": "aidma",
+    "type": "flow",
+    "category": "型C：プロセス/フロー型",
+    "title": "AIDMA（購買心理プロセス）",
+    "layout": "linear",
+    "steps": [
+      { "id": "s1", "title": "注意（Attention）", "text": "" },
+      { "id": "s2", "title": "関心（Interest）", "text": "" },
+      { "id": "s3", "title": "欲求（Desire）", "text": "" },
+      { "id": "s4", "title": "記憶（Memory）", "text": "" },
+      { "id": "s5", "title": "行動（Action）", "text": "" }
+    ]
+  },
+  {
+    "id": "ooda-loop",
+    "type": "flow",
+    "category": "型C：プロセス/フロー型",
+    "title": "OODAループ",
+    "layout": "cycle",
+    "steps": [
+      { "id": "s1", "title": "観察（Observe）", "text": "" },
+      { "id": "s2", "title": "状況判断（Orient）", "text": "" },
+      { "id": "s3", "title": "意思決定（Decide）", "text": "" },
+      { "id": "s4", "title": "実行（Act）", "text": "" }
+    ]
+  },
+  {
+    "id": "pds-cycle",
+    "type": "flow",
+    "category": "型C：プロセス/フロー型",
+    "title": "PDS（Plan-Do-See）",
+    "layout": "cycle",
+    "steps": [
+      { "id": "s1", "title": "計画（Plan）", "text": "" },
+      { "id": "s2", "title": "実行（Do）", "text": "" },
+      { "id": "s3", "title": "評価（See）", "text": "" }
+    ]
+  },
+  {
+    "id": "problem-solving-process",
+    "type": "flow",
+    "category": "型C：プロセス/フロー型",
+    "title": "問題解決プロセス",
+    "layout": "linear",
+    "steps": [
+      { "id": "s1", "title": "問題定義", "text": "解くべき問題を明確にする" },
+      { "id": "s2", "title": "原因分析", "text": "なぜ起きているかを掘り下げる" },
+      { "id": "s3", "title": "対策立案", "text": "打ち手の候補を出して選ぶ" },
+      { "id": "s4", "title": "実行", "text": "決めた対策を実行する" },
+      { "id": "s5", "title": "振り返り", "text": "結果を評価し次に活かす" }
+    ]
   }
 ]
