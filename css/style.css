@@ -686,7 +686,10 @@ body {
 
 /* スクロールコンテナ（linear で多い時は横スクロール） */
 .flow-wrapper {
-  overflow: auto;
+  /* 横スクロールのみ必要（多ステップ linear）。縦は不要（linear=1行 / cycle=正方形が枠に追従）。
+     overflow:auto だと linear canvas の分数高さで縦15pxのphantomが出るため overflow-y:hidden で抑止。 */
+  overflow-x: auto;
+  overflow-y: hidden;
   border: 2px solid var(--color-border);
   border-radius: var(--radius);
   background: var(--color-white);
