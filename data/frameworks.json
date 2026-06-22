@@ -2,7 +2,7 @@
   {
     "id": "urgent-important-matrix",
     "type": "matrix",
-    "category": "型A：マトリクス型",
+    "category": "意思決定・優先順位",
     "title": "緊急度/重要度マトリクス",
     "axes": {
       "x": { "left": "緊急度 低", "right": "緊急度 高" },
@@ -24,7 +24,7 @@
   {
     "id": "logic-tree-sample",
     "type": "tree",
-    "category": "型B：ツリー/階層型",
+    "category": "問題解決・思考整理",
     "title": "ロジックツリー",
     "direction": "horizontal",
     "root": {
@@ -53,7 +53,7 @@
   {
     "id": "pdca-sample",
     "type": "flow",
-    "category": "型C：プロセス/フロー型",
+    "category": "業務改善・プロセス",
     "title": "PDCAサイクル",
     "layout": "cycle",
     "steps": [
@@ -66,7 +66,7 @@
   {
     "id": "5w1h-sample",
     "type": "sheet",
-    "category": "型D：記入式シート型",
+    "category": "問題解決・思考整理",
     "title": "5W1H分析シート",
     "layout": "row",
     "fields": [
@@ -81,7 +81,7 @@
   {
     "id": "venn-sample",
     "type": "venn",
-    "category": "型E：円/集合図型",
+    "category": "基本ツール・汎用図",
     "title": "ベン図（2集合）",
     "sets": [
       { "id": "A", "label": "集合A" },
@@ -96,7 +96,7 @@
   {
     "id": "roadmap-sample",
     "type": "timeline",
-    "category": "型F：時系列/線表型",
+    "category": "計画・時間管理",
     "title": "ロードマップ",
     "scale": ["Q1", "Q2", "Q3", "Q4"],
     "tasks": [
@@ -109,7 +109,7 @@
   {
     "id": "ppm-matrix",
     "type": "matrix",
-    "category": "型A：マトリクス型",
+    "category": "戦略・分析",
     "title": "PPM（プロダクト・ポートフォリオ・マネジメント）",
     "axes": {
       "x": { "left": "相対的市場シェア 低", "right": "相対的市場シェア 高" },
@@ -126,7 +126,7 @@
   {
     "id": "decision-matrix-effort-impact",
     "type": "matrix",
-    "category": "型A：マトリクス型",
+    "category": "意思決定・優先順位",
     "title": "意思決定マトリクス（効果×実現性）",
     "axes": {
       "x": { "left": "実現のしやすさ 低", "right": "実現のしやすさ 高" },
@@ -146,7 +146,7 @@
   {
     "id": "risk-matrix",
     "type": "matrix",
-    "category": "型A：マトリクス型",
+    "category": "問題解決・思考整理",
     "title": "リスクマトリクス（可能性×影響度）",
     "axes": {
       "x": { "left": "発生可能性 低", "right": "発生可能性 高" },
@@ -166,7 +166,7 @@
   {
     "id": "swot-analysis",
     "type": "sheet",
-    "category": "型D：記入式シート型",
+    "category": "戦略・分析",
     "title": "SWOT分析",
     "layout": "grid2x2",
     "cells": [
@@ -179,7 +179,7 @@
   {
     "id": "ansoff-matrix",
     "type": "sheet",
-    "category": "型D：記入式シート型",
+    "category": "戦略・分析",
     "title": "アンゾフの成長マトリクス",
     "layout": "grid2x2",
     "cells": [
@@ -192,7 +192,7 @@
   {
     "id": "johari-window",
     "type": "sheet",
-    "category": "型D：記入式シート型",
+    "category": "問題解決・思考整理",
     "title": "ジョハリの窓",
     "layout": "grid2x2",
     "cells": [
@@ -205,7 +205,7 @@
   {
     "id": "customer-journey",
     "type": "flow",
-    "category": "型C：プロセス/フロー型",
+    "category": "マーケティング・顧客理解",
     "title": "カスタマージャーニー",
     "layout": "linear",
     "steps": [
@@ -220,7 +220,7 @@
   {
     "id": "aidma",
     "type": "flow",
-    "category": "型C：プロセス/フロー型",
+    "category": "マーケティング・顧客理解",
     "title": "AIDMA（購買心理プロセス）",
     "layout": "linear",
     "steps": [
@@ -234,7 +234,7 @@
   {
     "id": "ooda-loop",
     "type": "flow",
-    "category": "型C：プロセス/フロー型",
+    "category": "業務改善・プロセス",
     "title": "OODAループ",
     "layout": "cycle",
     "steps": [
@@ -247,7 +247,7 @@
   {
     "id": "pds-cycle",
     "type": "flow",
-    "category": "型C：プロセス/フロー型",
+    "category": "業務改善・プロセス",
     "title": "PDS（Plan-Do-See）",
     "layout": "cycle",
     "steps": [
@@ -259,7 +259,7 @@
   {
     "id": "problem-solving-process",
     "type": "flow",
-    "category": "型C：プロセス/フロー型",
+    "category": "問題解決・思考整理",
     "title": "問題解決プロセス",
     "layout": "linear",
     "steps": [
@@ -273,7 +273,7 @@
   {
     "id": "5-whys",
     "type": "tree",
-    "category": "型B：ツリー/階層型",
+    "category": "問題解決・思考整理",
     "title": "なぜなぜ分析（5 Whys）",
     "direction": "vertical",
     "root": {
@@ -291,7 +291,7 @@
   {
     "id": "mece-tree",
     "type": "tree",
-    "category": "型B：ツリー/階層型",
+    "category": "問題解決・思考整理",
     "title": "MECE分解ツリー",
     "direction": "horizontal",
     "root": {
@@ -311,7 +311,7 @@
   {
     "id": "kpi-tree",
     "type": "tree",
-    "category": "型B：ツリー/階層型",
+    "category": "戦略・分析",
     "title": "KPIツリー",
     "direction": "horizontal",
     "root": {
@@ -330,7 +330,7 @@
   {
     "id": "pyramid-structure",
     "type": "tree",
-    "category": "型B：ツリー/階層型",
+    "category": "問題解決・思考整理",
     "title": "ピラミッドストラクチャー",
     "direction": "vertical",
     "root": {
@@ -350,7 +350,7 @@
   {
     "id": "decision-tree",
     "type": "tree",
-    "category": "型B：ツリー/階層型",
+    "category": "意思決定・優先順位",
     "title": "意思決定ツリー",
     "direction": "horizontal",
     "root": {
@@ -364,7 +364,7 @@
   {
     "id": "venn-sample-3",
     "type": "venn",
-    "category": "型E：円/集合図型",
+    "category": "基本ツール・汎用図",
     "title": "ベン図（3集合）",
     "sets": [
       { "id": "A", "label": "集合A" },
@@ -384,7 +384,7 @@
   {
     "id": "concept-3c-overlap",
     "type": "venn",
-    "category": "型E：円/集合図型",
+    "category": "戦略・分析",
     "title": "勝てるコンセプトの発見",
     "sets": [
       { "id": "A", "label": "顧客が求めること" },
@@ -401,7 +401,7 @@
   {
     "id": "sweet-spot",
     "type": "venn",
-    "category": "型E：円/集合図型",
+    "category": "マーケティング・顧客理解",
     "title": "注力領域（スイートスポット）の発見",
     "sets": [
       { "id": "A", "label": "やりたいこと" },
@@ -418,7 +418,7 @@
   {
     "id": "project-gantt",
     "type": "timeline",
-    "category": "型F：時系列/線表型",
+    "category": "計画・時間管理",
     "title": "プロジェクト工程表",
     "scale": ["Q1", "Q2", "Q3", "Q4"],
     "tasks": [
@@ -432,7 +432,7 @@
   {
     "id": "business-plan-timeline",
     "type": "timeline",
-    "category": "型F：時系列/線表型",
+    "category": "計画・時間管理",
     "title": "事業計画タイムライン（3カ年）",
     "scale": ["1年目", "2年目", "3年目"],
     "tasks": [
@@ -445,7 +445,7 @@
   {
     "id": "learning-roadmap",
     "type": "timeline",
-    "category": "型F：時系列/線表型",
+    "category": "計画・時間管理",
     "title": "スキル習得計画",
     "scale": ["1か月目", "2か月目", "3か月目", "4か月目"],
     "tasks": [
