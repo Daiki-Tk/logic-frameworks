@@ -277,12 +277,11 @@
     "title": "なぜなぜ分析（5 Whys）",
     "direction": "vertical",
     "root": {
-      "id": "n0", "title": "納期に間に合わなかった", "text": "",
-      "children": [
-        { "id": "n1", "title": "なぜ？ 作業着手が遅れた", "text": "", "children": [
-          { "id": "n2", "title": "なぜ？ 前工程の完了待ちだった", "text": "", "children": [
-            { "id": "n3", "title": "なぜ？ 依頼の優先順位が不明確だった", "text": "", "children": [
-              { "id": "n4", "title": "なぜ？ 依頼ルールが決まっていなかった", "text": "", "children": [] }
+      "id": "n0", "title": "問題", "text": "納期に間に合わなかった", "children": [
+        { "id": "n1", "title": "なぜ？", "text": "作業着手が遅れた", "children": [
+          { "id": "n2", "title": "なぜ？", "text": "前工程の完了待ちだった", "children": [
+            { "id": "n3", "title": "なぜ？", "text": "依頼の優先順位が不明確だった", "children": [
+              { "id": "n4", "title": "なぜ？（真因）", "text": "依頼ルールが決まっていなかった", "children": [] }
             ] }
           ] }
         ] }
@@ -316,13 +315,12 @@
     "title": "KPIツリー",
     "direction": "horizontal",
     "root": {
-      "id": "n0", "title": "売上（KGI）", "text": "",
-      "children": [
-        { "id": "n1", "title": "客数", "text": "", "children": [
+      "id": "n0", "title": "売上（KGI）", "text": "客数 × 客単価", "children": [
+        { "id": "n1", "title": "客数", "text": "新規 ＋ 既存", "children": [
           { "id": "n1a", "title": "新規顧客数", "text": "", "children": [] },
           { "id": "n1b", "title": "既存顧客数", "text": "", "children": [] }
         ] },
-        { "id": "n2", "title": "客単価", "text": "", "children": [
+        { "id": "n2", "title": "客単価", "text": "購入点数 × 商品単価", "children": [
           { "id": "n2a", "title": "購入点数", "text": "", "children": [] },
           { "id": "n2b", "title": "商品単価", "text": "", "children": [] }
         ] }
@@ -336,16 +334,15 @@
     "title": "ピラミッドストラクチャー",
     "direction": "vertical",
     "root": {
-      "id": "n0", "title": "結論：新サービスを導入すべき", "text": "",
-      "children": [
-        { "id": "n1", "title": "根拠1：顧客の要望が多い", "text": "", "children": [
-          { "id": "n1a", "title": "問い合わせが増加している", "text": "", "children": [] }
+      "id": "n0", "title": "結論", "text": "新サービスを導入すべき", "children": [
+        { "id": "n1", "title": "根拠1", "text": "顧客の要望が多い", "children": [
+          { "id": "n1a", "title": "裏付け", "text": "問い合わせが増加している", "children": [] }
         ] },
-        { "id": "n2", "title": "根拠2：競合が先行している", "text": "", "children": [
-          { "id": "n2a", "title": "主要3社が既に提供", "text": "", "children": [] }
+        { "id": "n2", "title": "根拠2", "text": "競合が先行している", "children": [
+          { "id": "n2a", "title": "裏付け", "text": "主要3社が既に提供", "children": [] }
         ] },
-        { "id": "n3", "title": "根拠3：自社の強みを活かせる", "text": "", "children": [
-          { "id": "n3a", "title": "既存基盤を流用できる", "text": "", "children": [] }
+        { "id": "n3", "title": "根拠3", "text": "自社の強みを活かせる", "children": [
+          { "id": "n3a", "title": "裏付け", "text": "既存基盤を流用できる", "children": [] }
         ] }
       ]
     }
@@ -357,17 +354,10 @@
     "title": "意思決定ツリー",
     "direction": "horizontal",
     "root": {
-      "id": "n0", "title": "新規事業をどう進めるか", "text": "",
-      "children": [
-        { "id": "n1", "title": "自社単独で行う", "text": "", "children": [
-          { "id": "n1a", "title": "自由度が高いが負担大", "text": "", "children": [] }
-        ] },
-        { "id": "n2", "title": "他社と提携する", "text": "", "children": [
-          { "id": "n2a", "title": "早いが利益を分け合う", "text": "", "children": [] }
-        ] },
-        { "id": "n3", "title": "外部に委託する", "text": "", "children": [
-          { "id": "n3a", "title": "手間は減るが統制が弱い", "text": "", "children": [] }
-        ] }
+      "id": "n0", "title": "論点", "text": "新規事業をどう進めるか", "children": [
+        { "id": "n1", "title": "自社単独で行う", "text": "自由度が高いが負担が大きい", "children": [] },
+        { "id": "n2", "title": "他社と提携する", "text": "早く進むが利益を分け合う", "children": [] },
+        { "id": "n3", "title": "外部に委託する", "text": "手間は減るが統制が弱い", "children": [] }
       ]
     }
   },
