@@ -454,5 +454,107 @@
       { "id": "t3", "label": "小さな作品を作る", "start": 2, "span": 2 },
       { "id": "t4", "label": "振り返り・発展", "start": 3, "span": 1 }
     ]
+  },
+  {
+    "id": "pest-analysis",
+    "type": "sheet",
+    "category": "戦略・分析",
+    "title": "PEST分析",
+    "layout": "grid2x2",
+    "cells": [
+      { "id": "tl", "label": "政治（Politics）：法規制・政策・税制など", "items": [] },
+      { "id": "tr", "label": "経済（Economy）：景気・物価・為替・金利など", "items": [] },
+      { "id": "bl", "label": "社会（Society）：人口・価値観・ライフスタイルなど", "items": [] },
+      { "id": "br", "label": "技術（Technology）：新技術・特許・インフラなど", "items": [] }
+    ]
+  },
+  {
+    "id": "3c-analysis",
+    "type": "sheet",
+    "category": "戦略・分析",
+    "title": "3C分析",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "顧客・市場（Customer）：誰がどんなニーズで買うか", "value": "" },
+      { "id": "f2", "label": "競合（Competitor）：相手は誰で何が強いか", "value": "" },
+      { "id": "f3", "label": "自社（Company）：自分たちの強み・弱み・資源", "value": "" }
+    ]
+  },
+  {
+    "id": "cross-swot",
+    "type": "sheet",
+    "category": "戦略・分析",
+    "title": "クロスSWOT分析",
+    "layout": "grid2x2",
+    "cells": [
+      { "id": "tl", "label": "積極化戦略（強み × 機会）：強みを活かして好機をつかむ", "items": [] },
+      { "id": "tr", "label": "差別化戦略（強み × 脅威）：強みで脅威を回避・転換する", "items": [] },
+      { "id": "bl", "label": "改善戦略（弱み × 機会）：弱みを補い好機を逃さない", "items": [] },
+      { "id": "br", "label": "防衛・撤退戦略（弱み × 脅威）：被害を最小化する", "items": [] }
+    ]
+  },
+  {
+    "id": "vrio-analysis",
+    "type": "sheet",
+    "category": "戦略・分析",
+    "title": "VRIO分析",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "経済価値（Value）：その資源は機会獲得や脅威回避に役立つか", "value": "" },
+      { "id": "f2", "label": "希少性（Rarity）：その資源を持つ競合は少ないか", "value": "" },
+      { "id": "f3", "label": "模倣困難性（Imitability）：他社が真似しにくいか", "value": "" },
+      { "id": "f4", "label": "組織（Organization）：資源を活かす体制が整っているか", "value": "" }
+    ]
+  },
+  {
+    "id": "advantage-matrix",
+    "type": "matrix",
+    "category": "戦略・分析",
+    "title": "アドバンテージマトリクス",
+    "axes": {
+      "x": { "left": "戦略変数 少", "right": "戦略変数 多" },
+      "y": { "top": "優位性 大", "bottom": "優位性 小" }
+    },
+    "quadrants": {
+      "topLeft": "規模型（量で優位）",
+      "topRight": "特化型（差別化で優位）",
+      "bottomRight": "分散型（小規模が乱立）",
+      "bottomLeft": "手詰まり型（差別化が難しい）"
+    },
+    "items": [
+      { "id": "sample1", "text": "大型装置産業", "x": 0.25, "y": 0.25 },
+      { "id": "sample2", "text": "高付加価値ブランド", "x": 0.75, "y": 0.25 },
+      { "id": "sample3", "text": "汎用素材・部品", "x": 0.25, "y": 0.75 },
+      { "id": "sample4", "text": "個人向け飲食・サービス", "x": 0.75, "y": 0.75 }
+    ]
+  },
+  {
+    "id": "product-life-cycle",
+    "type": "flow",
+    "category": "戦略・分析",
+    "title": "製品ライフサイクル（PLC）",
+    "layout": "linear",
+    "steps": [
+      { "id": "s1", "title": "導入期", "text": "認知が低く売上は小さい。先行投資がかさむ段階" },
+      { "id": "s2", "title": "成長期", "text": "需要が急拡大し売上と利益が伸びる段階" },
+      { "id": "s3", "title": "成熟期", "text": "普及が一巡し成長が鈍化、競争が激しくなる段階" },
+      { "id": "s4", "title": "衰退期", "text": "需要が縮小し撤退や次の一手を考える段階" }
+    ]
+  },
+  {
+    "id": "seven-s",
+    "type": "sheet",
+    "category": "戦略・分析",
+    "title": "7Sフレームワーク",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "戦略（Strategy）：競争優位を築くための方針", "value": "" },
+      { "id": "f2", "label": "組織構造（Structure）：指揮系統や部門の組み立て", "value": "" },
+      { "id": "f3", "label": "システム・制度（Systems）：業務の仕組みやルール", "value": "" },
+      { "id": "f4", "label": "共通の価値観（Shared Values）：組織の核となる理念", "value": "" },
+      { "id": "f5", "label": "人材（Staff）：どんな人がどれだけいるか", "value": "" },
+      { "id": "f6", "label": "スキル（Skills）：組織が持つ強みや能力", "value": "" },
+      { "id": "f7", "label": "スタイル（Style）：仕事の進め方や社風", "value": "" }
+    ]
   }
 ]
