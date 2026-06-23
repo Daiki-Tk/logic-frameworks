@@ -642,5 +642,83 @@
       { "id": "f2", "label": "購入頻度（Frequency）：どのくらいの頻度で買うか", "value": "" },
       { "id": "f3", "label": "購入金額（Monetary）：これまでに使った累計金額", "value": "" }
     ]
+  },
+  {
+    "id": "ecrs",
+    "type": "sheet",
+    "category": "業務改善・プロセス",
+    "title": "ECRS",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "排除（Eliminate）：そもそもやめられる作業はないか", "value": "" },
+      { "id": "f2", "label": "結合（Combine）：まとめて一度にできないか", "value": "" },
+      { "id": "f3", "label": "再配置（Rearrange）：順序や担当・場所を入れ替えられないか", "value": "" },
+      { "id": "f4", "label": "簡素化（Simplify）：もっと単純にできないか", "value": "" }
+    ]
+  },
+  {
+    "id": "qcd",
+    "type": "sheet",
+    "category": "業務改善・プロセス",
+    "title": "QCD",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "品質（Quality）：求められる品質を満たせているか", "value": "" },
+      { "id": "f2", "label": "コスト（Cost）：かけている費用は妥当か", "value": "" },
+      { "id": "f3", "label": "納期（Delivery）：必要なタイミングで届けられるか", "value": "" }
+    ]
+  },
+  {
+    "id": "5s-method",
+    "type": "sheet",
+    "category": "業務改善・プロセス",
+    "title": "5S",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "整理（Seiri）：要否を分け、要らないものを捨てる", "value": "" },
+      { "id": "f2", "label": "整頓（Seiton）：要るものを使いやすい定位置に置く", "value": "" },
+      { "id": "f3", "label": "清掃（Seiso）：きれいにし、異常に気づける状態にする", "value": "" },
+      { "id": "f4", "label": "清潔（Seiketsu）：整理・整頓・清掃を保つ仕組みにする", "value": "" },
+      { "id": "f5", "label": "躾（Shitsuke）：決めたことを習慣として続ける", "value": "" }
+    ]
+  },
+  {
+    "id": "3m-analysis",
+    "type": "sheet",
+    "category": "業務改善・プロセス",
+    "title": "3M（ムリ・ムダ・ムラ）",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "ムリ：能力を超えた負担がかかっていないか", "value": "" },
+      { "id": "f2", "label": "ムダ：付加価値を生まない作業はないか", "value": "" },
+      { "id": "f3", "label": "ムラ：仕事量や品質にばらつきがないか", "value": "" }
+    ]
+  },
+  {
+    "id": "dmaic",
+    "type": "flow",
+    "category": "業務改善・プロセス",
+    "title": "DMAIC",
+    "layout": "linear",
+    "steps": [
+      { "id": "s1", "title": "定義（Define）", "text": "解決すべき問題と目標を決める" },
+      { "id": "s2", "title": "測定（Measure）", "text": "現状を数値で把握する" },
+      { "id": "s3", "title": "分析（Analyze）", "text": "データから原因を突き止める" },
+      { "id": "s4", "title": "改善（Improve）", "text": "対策を実行して効果を出す" },
+      { "id": "s5", "title": "管理（Control）", "text": "改善した状態を維持する仕組みを作る" }
+    ]
+  },
+  {
+    "id": "sdca-cycle",
+    "type": "flow",
+    "category": "業務改善・プロセス",
+    "title": "SDCA（標準定着サイクル）",
+    "layout": "cycle",
+    "steps": [
+      { "id": "s1", "title": "標準化（Standardize）", "text": "今の最善のやり方を標準として定める" },
+      { "id": "s2", "title": "実行（Do）", "text": "標準どおりに作業する" },
+      { "id": "s3", "title": "確認（Check）", "text": "標準が守られ機能しているか確かめる" },
+      { "id": "s4", "title": "処置（Act）", "text": "ズレを正し、必要なら標準を見直す" }
+    ]
   }
 ]
