@@ -556,5 +556,91 @@
       { "id": "f6", "label": "スキル（Skills）：組織が持つ強みや能力", "value": "" },
       { "id": "f7", "label": "スタイル（Style）：仕事の進め方や社風", "value": "" }
     ]
+  },
+  {
+    "id": "4p-analysis",
+    "type": "sheet",
+    "category": "マーケティング・顧客理解",
+    "title": "4P分析",
+    "layout": "grid2x2",
+    "cells": [
+      { "id": "tl", "label": "製品（Product）：何を売るか・品質・機能・デザイン", "items": [] },
+      { "id": "tr", "label": "価格（Price）：いくらで売るか・価格設定の考え方", "items": [] },
+      { "id": "bl", "label": "流通（Place）：どこで・どの経路で届けるか", "items": [] },
+      { "id": "br", "label": "販促（Promotion）：どう知らせ・買ってもらうか", "items": [] }
+    ]
+  },
+  {
+    "id": "4c-analysis",
+    "type": "sheet",
+    "category": "マーケティング・顧客理解",
+    "title": "4C分析",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "顧客価値（Customer Value）：顧客が得られる便益", "value": "" },
+      { "id": "f2", "label": "コスト（Cost）：顧客が払う総コスト（お金・手間・時間）", "value": "" },
+      { "id": "f3", "label": "利便性（Convenience）：手に入れ・使うことのしやすさ", "value": "" },
+      { "id": "f4", "label": "コミュニケーション（Communication）：顧客との双方向の対話", "value": "" }
+    ]
+  },
+  {
+    "id": "stp-analysis",
+    "type": "flow",
+    "category": "マーケティング・顧客理解",
+    "title": "STP分析",
+    "layout": "linear",
+    "steps": [
+      { "id": "s1", "title": "セグメンテーション", "text": "市場を切り口（年齢・地域・ニーズ等）で分ける" },
+      { "id": "s2", "title": "ターゲティング", "text": "分けた中から狙う顧客層を選ぶ" },
+      { "id": "s3", "title": "ポジショニング", "text": "その層の中での自社の立ち位置を定める" }
+    ]
+  },
+  {
+    "id": "persona",
+    "type": "sheet",
+    "category": "マーケティング・顧客理解",
+    "title": "ペルソナ設定",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "基本属性：年齢・性別・居住地・職業・家族構成など", "value": "" },
+      { "id": "f2", "label": "価値観・ライフスタイル：大切にしていること・日常", "value": "" },
+      { "id": "f3", "label": "目標：なりたい姿・実現したいこと", "value": "" },
+      { "id": "f4", "label": "課題・悩み：困っていること（ペイン）", "value": "" },
+      { "id": "f5", "label": "情報収集：よく使うメディア・接触チャネル", "value": "" },
+      { "id": "f6", "label": "商品との関わり：購入のきっかけ・使い方", "value": "" }
+    ]
+  },
+  {
+    "id": "positioning-map",
+    "type": "matrix",
+    "category": "マーケティング・顧客理解",
+    "title": "ポジショニングマップ",
+    "axes": {
+      "x": { "left": "価格 安い", "right": "価格 高い" },
+      "y": { "top": "高品質・高機能", "bottom": "シンプル・低価格帯" }
+    },
+    "quadrants": {
+      "topLeft": "高コスパ",
+      "topRight": "プレミアム",
+      "bottomRight": "割高（見直し候補）",
+      "bottomLeft": "エコノミー"
+    },
+    "items": [
+      { "id": "sample1", "text": "自社", "x": 0.32, "y": 0.3 },
+      { "id": "sample2", "text": "競合A", "x": 0.75, "y": 0.25 },
+      { "id": "sample3", "text": "競合B", "x": 0.62, "y": 0.7 }
+    ]
+  },
+  {
+    "id": "rfm-analysis",
+    "type": "sheet",
+    "category": "マーケティング・顧客理解",
+    "title": "RFM分析",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "最近購入（Recency）：最後に買ってからどれくらい経つか", "value": "" },
+      { "id": "f2", "label": "購入頻度（Frequency）：どのくらいの頻度で買うか", "value": "" },
+      { "id": "f3", "label": "購入金額（Monetary）：これまでに使った累計金額", "value": "" }
+    ]
   }
 ]
