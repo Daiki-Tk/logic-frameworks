@@ -816,5 +816,42 @@
       { "id": "m3", "label": "本番リリース", "start": 2, "span": 1 },
       { "id": "m4", "label": "達成レビュー", "start": 3, "span": 1 }
     ]
+  },
+  {
+    "id": "pmi-method",
+    "type": "sheet",
+    "category": "意思決定・優先順位",
+    "title": "PMI法",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "良い点（Plus）：その案の利点・メリット", "value": "" },
+      { "id": "f2", "label": "良くない点（Minus）：その案の欠点・リスク", "value": "" },
+      { "id": "f3", "label": "気になる点（Interesting）：良し悪しは別として注目したい点", "value": "" }
+    ]
+  },
+  {
+    "id": "decision-balance-sheet",
+    "type": "sheet",
+    "category": "意思決定・優先順位",
+    "title": "意思決定バランスシート",
+    "layout": "grid2x2",
+    "cells": [
+      { "id": "tl", "label": "自分への得：この決断で自分が得られるもの", "items": [] },
+      { "id": "tr", "label": "自分への損：この決断で自分が失うもの", "items": [] },
+      { "id": "bl", "label": "周囲への得：周りの人が得られるもの", "items": [] },
+      { "id": "br", "label": "周囲への損：周りの人が負担するもの", "items": [] }
+    ]
+  },
+  {
+    "id": "ten-ten-ten",
+    "type": "sheet",
+    "category": "意思決定・優先順位",
+    "title": "10-10-10",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "10分後：決断した直後にどう感じるか", "value": "" },
+      { "id": "f2", "label": "10ヶ月後：少し先の自分から見てどうか", "value": "" },
+      { "id": "f3", "label": "10年後：長い目で見て後悔しないか", "value": "" }
+    ]
   }
 ]
