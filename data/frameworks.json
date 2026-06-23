@@ -720,5 +720,101 @@
       { "id": "s3", "title": "確認（Check）", "text": "標準が守られ機能しているか確かめる" },
       { "id": "s4", "title": "処置（Act）", "text": "ズレを正し、必要なら標準を見直す" }
     ]
+  },
+  {
+    "id": "wbs",
+    "type": "tree",
+    "category": "計画・時間管理",
+    "title": "WBS（作業分解構成図）",
+    "direction": "horizontal",
+    "root": {
+      "id": "n_root",
+      "title": "社内イベントを開催する",
+      "text": "",
+      "children": [
+        {
+          "id": "n_1",
+          "title": "企画",
+          "text": "",
+          "children": [
+            { "id": "n_1_1", "title": "目的を決める", "text": "", "children": [] },
+            { "id": "n_1_2", "title": "内容・規模を決める", "text": "", "children": [] }
+          ]
+        },
+        {
+          "id": "n_2",
+          "title": "準備",
+          "text": "",
+          "children": [
+            { "id": "n_2_1", "title": "会場を手配する", "text": "", "children": [] },
+            { "id": "n_2_2", "title": "備品をそろえる", "text": "", "children": [] },
+            { "id": "n_2_3", "title": "案内を送る", "text": "", "children": [] }
+          ]
+        },
+        {
+          "id": "n_3",
+          "title": "当日運営",
+          "text": "",
+          "children": [
+            { "id": "n_3_1", "title": "受付をする", "text": "", "children": [] },
+            { "id": "n_3_2", "title": "進行を回す", "text": "", "children": [] }
+          ]
+        },
+        {
+          "id": "n_4",
+          "title": "後処理・振り返り",
+          "text": "",
+          "children": [
+            { "id": "n_4_1", "title": "片付け・精算", "text": "", "children": [] },
+            { "id": "n_4_2", "title": "アンケート集計", "text": "", "children": [] }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "ogsm",
+    "type": "sheet",
+    "category": "計画・時間管理",
+    "title": "OGSM",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "目的（Objective）：最終的に目指す状態（定性的）", "value": "" },
+      { "id": "f2", "label": "目標（Goals）：目的を測る具体的な数値目標", "value": "" },
+      { "id": "f3", "label": "戦略（Strategies）：目標を達成するための方針", "value": "" },
+      { "id": "f4", "label": "測定指標（Measures）：戦略の進捗を測るものさし", "value": "" }
+    ]
+  },
+  {
+    "id": "action-plan",
+    "type": "sheet",
+    "category": "計画・時間管理",
+    "title": "アクションプラン",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "やること：具体的な行動", "value": "" },
+      { "id": "f2", "label": "担当：誰がやるか", "value": "" },
+      { "id": "f3", "label": "期限：いつまでに", "value": "" },
+      { "id": "f4", "label": "完了条件：何をもって完了とするか", "value": "" },
+      { "id": "f5", "label": "状況：現在の進み具合", "value": "" }
+    ]
+  },
+  {
+    "id": "milestone-plan",
+    "type": "timeline",
+    "category": "計画・時間管理",
+    "title": "マイルストーンプラン",
+    "scale": [
+      "第1四半期",
+      "第2四半期",
+      "第3四半期",
+      "第4四半期"
+    ],
+    "tasks": [
+      { "id": "m1", "label": "企画承認", "start": 0, "span": 1 },
+      { "id": "m2", "label": "試作完成", "start": 1, "span": 1 },
+      { "id": "m3", "label": "本番リリース", "start": 2, "span": 1 },
+      { "id": "m4", "label": "達成レビュー", "start": 3, "span": 1 }
+    ]
   }
 ]
