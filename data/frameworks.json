@@ -853,5 +853,45 @@
       { "id": "f2", "label": "10ヶ月後：少し先の自分から見てどうか", "value": "" },
       { "id": "f3", "label": "10年後：長い目で見て後悔しないか", "value": "" }
     ]
+  },
+  {
+    "id": "scamper",
+    "type": "sheet",
+    "category": "問題解決・思考整理",
+    "title": "SCAMPER",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "置き換える（Substitute）：一部を別のものに替えられないか", "value": "" },
+      { "id": "f2", "label": "組み合わせる（Combine）：他のものと組み合わせられないか", "value": "" },
+      { "id": "f3", "label": "応用する（Adapt）：他の事例ややり方を当てはめられないか", "value": "" },
+      { "id": "f4", "label": "修正する（Modify）：大きさ・形・意味を変えられないか", "value": "" },
+      { "id": "f5", "label": "転用する（Put to other use）：別の使い道はないか", "value": "" },
+      { "id": "f6", "label": "削る（Eliminate）：減らす・省けるものはないか", "value": "" },
+      { "id": "f7", "label": "逆転・再編する（Reverse）：順序や役割を入れ替えられないか", "value": "" }
+    ]
+  },
+  {
+    "id": "kuu-ame-kasa",
+    "type": "flow",
+    "category": "問題解決・思考整理",
+    "title": "空・雨・傘",
+    "layout": "linear",
+    "steps": [
+      { "id": "s1", "title": "空（事実）", "text": "いま起きている事実・状況をそのまま捉える" },
+      { "id": "s2", "title": "雨（解釈）", "text": "その事実が何を意味するかを読み取る" },
+      { "id": "s3", "title": "傘（行動）", "text": "解釈にもとづき取るべき行動を決める" }
+    ]
+  },
+  {
+    "id": "as-is-to-be",
+    "type": "sheet",
+    "category": "問題解決・思考整理",
+    "title": "As-Is/To-Be ギャップ分析",
+    "layout": "stack",
+    "fields": [
+      { "id": "f1", "label": "現状（As-Is）：いまの状態を具体的に書き出す", "value": "" },
+      { "id": "f2", "label": "理想（To-Be）：目指したい状態を描く", "value": "" },
+      { "id": "f3", "label": "ギャップと打ち手：差を埋めるために必要なこと", "value": "" }
+    ]
   }
 ]
