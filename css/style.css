@@ -481,6 +481,46 @@ body {
 }
 
 /* ─────────────────────────────────────────
+   解説・使い方（guides.json から描画）
+───────────────────────────────────────── */
+.lf-guide {
+  max-width: 800px;
+  margin: 24px auto 0;
+  padding: 24px;
+  background: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  color: var(--color-text);
+}
+.lf-guide-section {
+  margin-bottom: 16px;
+}
+.lf-guide-section:last-child {
+  margin-bottom: 0;
+}
+.lf-guide-label {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+.lf-guide-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.lf-guide-list {
+  margin: 0;
+  padding-left: 1.4em;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.lf-guide-list li {
+  margin-bottom: 2px;
+}
+
+/* ─────────────────────────────────────────
    型B：ツリー/階層型エンジン
 ───────────────────────────────────────── */
 
